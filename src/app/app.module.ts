@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { ScrollRevealDirective } from './directives/scroll-reveal.directive';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -42,10 +44,12 @@ import { CardPlayersPageComponent } from './pages/card-players-page/card-players
     TemporadasPageComponent,
     TemporadasComponentComponent,
     CardsPlayersServiceComponent,
-    CardPlayersPageComponent
+    CardPlayersPageComponent,
+    ScrollRevealDirective,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
   ],

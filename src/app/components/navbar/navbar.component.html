@@ -1,12 +1,20 @@
-<nav>
-    <div class="navbar-content">
-
-        <div class="logo">
-           
-            <div class="logo-text"><i class="fa-solid fa-bars" (click)="alterarValor();"></i>About Valorant</div>
-        </div>
-        <div class="infos">
-           
-        </div>
+<nav
+  class="fixed top-0 left-0 w-full h-[86px] bg-crimson z-50 flex items-center animate-slide-down transition-shadow duration-300"
+  [class.shadow-[0_4px_40px_-10px_rgba(0,0,0,0.8)]]="isScrolled"
+  [class.shadow-[0_0_20px_-10px_black]]="!isScrolled"
+>
+  <div class="w-full px-8 flex flex-row justify-between items-center">
+    <div class="flex flex-row items-center gap-5">
+      <button
+        class="md:hidden flex items-center justify-center w-8 h-8 rounded transition-transform duration-200 hover:scale-110 active:scale-95 focus:outline-none"
+        (click)="alterarValor()"
+        aria-label="Toggle menu"
+      >
+        <i class="fa-solid fa-bars text-cream text-xl"></i>
+      </button>
+      <span class="font-display font-bold text-xl tracking-tighter text-cream cursor-default select-none">
+        About Valorant
+      </span>
     </div>
+  </div>
 </nav>

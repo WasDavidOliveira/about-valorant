@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { AsideActionService } from 'src/app/services/aside-action.service';
 
 @Component({
@@ -6,23 +6,23 @@ import { AsideActionService } from 'src/app/services/aside-action.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
-  valorParaAside: boolean = false;
+  isScrolled = false;
 
   constructor(private dataService: AsideActionService) {}
 
-
-  ngOnInit(){
-
+  ngOnInit(): void {
     this.dataService.atualizarValor(false);
-    console.log(this.dataService.valorCompartilhado.getValue());
-
   }
 
-  alterarValor() {
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.isScrolled = window.scrollY > 10;
+  }
+
+  alterarValor(): void {
     const novoValor = !this.dataService.valorCompartilhado.getValue();
     this.dataService.atualizarValor(novoValor);
   }
-
 }

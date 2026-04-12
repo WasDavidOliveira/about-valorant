@@ -1,6 +1,32 @@
+export interface ValorantWeaponSkinChromaDto {
+  fullRender: string | null;
+  displayIcon: string | null;
+}
+
 export interface ValorantWeaponSkinDto {
+  uuid: string;
   displayName: string;
   displayIcon: string | null;
+  chromas?: ValorantWeaponSkinChromaDto[] | null;
+}
+
+export function skinGalleryImageUrl(skin: ValorantWeaponSkinDto): string | null {
+  const chromas = skin.chromas;
+  if (chromas && chromas.length > 0) {
+    for (const c of chromas) {
+      if (c.fullRender) {
+        return c.fullRender;
+      }
+    }
+  }
+  if (skin.displayIcon) {
+    return skin.displayIcon;
+  }
+  return null;
+}
+
+export function skinCardCanExpand(skin: ValorantWeaponSkinDto): boolean {
+  return skin.displayIcon !== null && skin.displayIcon.length > 0;
 }
 
 export interface ValorantWeaponShopDto {

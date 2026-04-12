@@ -13,6 +13,8 @@ import {
   ValorantWeaponSkinDto,
   WeaponCategorySectionViewModel,
   buildWeaponCategorySections,
+  skinGalleryImageUrl,
+  skinCardCanExpand,
 } from 'src/app/models/valorant-weapon.model';
 
 @Component({
@@ -46,6 +48,7 @@ export class WeaponComponentComponent implements OnInit {
   protected readonly skeletonSlots = [0, 1, 2, 3, 4, 5];
   protected divAtiva = '';
   protected skinSearchQuery = '';
+  protected skinLightbox: { weaponUuid: string; skin: ValorantWeaponSkinDto } | null = null;
 
   constructor(
     protected weaponService: WeaponServiceService,
@@ -76,7 +79,40 @@ export class WeaponComponentComponent implements OnInit {
     if (next.length > 0) {
       this.skinSearchQuery = '';
     }
+    if (next.length === 0) {
+      this.skinLightbox = null;
+    }
     this.divAtiva = next;
+  }
+
+  onWeaponModalOverlayClick(weaponUuid: string, event: MouseEvent): void {
+    if (this.skinLightbox !== null) {
+      return;
+    }
+    this.showDiv(weaponUuid);
+  }
+
+  openSkinPreview(weaponUuid: string, skin: ValorantWeaponSkinDto): void {
+    if (!skinCardCanExpand(skin)) {
+      return;
+    }
+    this.skinLightbox = { weaponUuid, skin };
+  }
+
+  closeSkinPreview(event?: MouseEvent): void {
+    if (event) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+    this.skinLightbox = null;
+  }
+
+  protected skinLargeImageUrl(skin: ValorantWeaponSkinDto): string {
+    return skinGalleryImageUrl(skin) ?? '';
+  }
+
+  protected canOpenSkinDetail(skin: ValorantWeaponSkinDto): boolean {
+    return skinCardCanExpand(skin);
   }
 
   onSkinSearchInput(event: Event): void {

@@ -1,12 +1,115 @@
-<aside [ngClass]="{'active' : active == true}">
-    <div class="aside-content">
-        <ul>
-            <li [ngClass]="{'active' : page == 'home' || page == 'agente'}"><a href="/"><i class="fa-solid fa-users"></i><span>Agentes</span></a></li>
-            <li [ngClass]="{'active' : page == 'mapas'}"><a href="/mapas"><i class="fa-solid fa-map"></i><span>Mapas</span></a></li>
-            <li [ngClass]="{'active' : page == 'armas'}"><a href="/armas"><i class="fa-solid fa-gun"></i><span>Armas</span></a></li>
-            <li [ngClass]="{'active' : page == 'elos'}"><a href="/elos"><i class="fa-solid fa-medal"></i><span>Elos</span></a></li>
-            <li [ngClass]="{'active' : page == 'temporadas'}"><a href="/temporadas"><i class="fa-solid fa-calendar"></i><span>Temporadas</span></a></li>
-            <li [ngClass]="{'active' : page == 'cards'}"><a href="/cards"><i class="fa-solid fa-id-card-clip"></i><span>Cards de jogadores</span></a></li>
-        </ul>
-    </div>
+<!-- Desktop sidebar: always visible md+ -->
+<aside
+  class="hidden md:flex flex-col h-screen min-w-[230px] w-[12vw] fixed top-[77px] left-0 z-40 shadow-[0_0_30px_-10px_black] animate-slide-down"
+  style="background-image: linear-gradient(to bottom, #c70039, #ac0032, #92002b, #790024, #60001c);"
+>
+  <nav class="p-6 flex flex-col gap-7 font-semibold">
+    <a
+      href="/"
+      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
+      [class.bg-dark-red]="page === 'home' || page === 'agente'"
+    >
+      <i class="fa-solid fa-users w-4 text-center"></i>
+      <span class="whitespace-nowrap">Agentes</span>
+      <span
+        *ngIf="page !== 'home' && page !== 'agente'"
+        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
+      ></span>
+    </a>
+    <a
+      href="/mapas"
+      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
+      [class.bg-dark-red]="page === 'mapas'"
+    >
+      <i class="fa-solid fa-map w-4 text-center"></i>
+      <span class="whitespace-nowrap">Mapas</span>
+      <span
+        *ngIf="page !== 'mapas'"
+        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
+      ></span>
+    </a>
+    <a
+      href="/armas"
+      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
+      [class.bg-dark-red]="page === 'armas'"
+    >
+      <i class="fa-solid fa-gun w-4 text-center"></i>
+      <span class="whitespace-nowrap">Armas</span>
+      <span
+        *ngIf="page !== 'armas'"
+        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
+      ></span>
+    </a>
+    <a
+      href="/elos"
+      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
+      [class.bg-dark-red]="page === 'elos'"
+    >
+      <i class="fa-solid fa-medal w-4 text-center"></i>
+      <span class="whitespace-nowrap">Elos</span>
+      <span
+        *ngIf="page !== 'elos'"
+        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
+      ></span>
+    </a>
+    <a
+      href="/temporadas"
+      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
+      [class.bg-dark-red]="page === 'temporadas'"
+    >
+      <i class="fa-solid fa-calendar w-4 text-center"></i>
+      <span class="whitespace-nowrap">Temporadas</span>
+      <span
+        *ngIf="page !== 'temporadas'"
+        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
+      ></span>
+    </a>
+    <a
+      href="/cards"
+      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
+      [class.bg-dark-red]="page === 'cards'"
+    >
+      <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
+      <span class="whitespace-nowrap">Cards de jogadores</span>
+      <span
+        *ngIf="page !== 'cards'"
+        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
+      ></span>
+    </a>
+  </nav>
+</aside>
+
+<!-- Mobile overlay sidebar -->
+<aside
+  *ngIf="active"
+  [@slideIn]="slideState"
+  class="md:hidden fixed top-[77px] left-0 w-full h-screen z-40 shadow-[0_0_30px_-10px_black]"
+  style="background-image: linear-gradient(to bottom, #c70039, #ac0032, #92002b, #790024, #60001c);"
+>
+  <nav class="p-6 flex flex-col gap-7 font-semibold">
+    <a href="/" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'home' || page === 'agente'">
+      <i class="fa-solid fa-users w-4 text-center"></i>
+      <span>Agentes</span>
+    </a>
+    <a href="/mapas" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'mapas'">
+      <i class="fa-solid fa-map w-4 text-center"></i>
+      <span>Mapas</span>
+    </a>
+    <a href="/armas" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'armas'">
+      <i class="fa-solid fa-gun w-4 text-center"></i>
+      <span>Armas</span>
+    </a>
+    <a href="/elos" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'elos'">
+      <i class="fa-solid fa-medal w-4 text-center"></i>
+      <span>Elos</span>
+    </a>
+    <a href="/temporadas" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'temporadas'">
+      <i class="fa-solid fa-calendar w-4 text-center"></i>
+      <span>Temporadas</span>
+    </a>
+    <a href="/cards" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'cards'">
+      <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
+      <span>Cards de jogadores</span>
+    </a>
+  </nav>
 </aside>

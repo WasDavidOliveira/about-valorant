@@ -1,21 +1,46 @@
-<section>
+<section class="w-full min-h-screen overflow-hidden">
+  <div class="mt-[112px] mb-16 ml-[300px] md:ml-8 w-[calc(100%-300px)] md:w-[calc(100%-2rem)] flex flex-col gap-5">
 
+    <h1
+      class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down flex items-center gap-3 px-2"
+      appScrollReveal
+      [revealDelay]="0"
+    >
+      Agentes
+    </h1>
 
-    <div class="container">
-        <div class="title">Agentes</div>
+    <div
+      class="grid grid-cols-6 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-6 w-[97%] md:w-full px-2"
+      [@listAnimation]="agentesData.length"
+    >
+      <a
+        *ngFor="let agente of agentesData"
+        href="/agentes/{{ agente.uuid }}"
+        target="_blank"
+        class="group relative bg-crimson rounded-lg p-5 flex flex-col items-center gap-2 overflow-hidden cursor-pointer
+               border border-crimson-dark/40
+               transition-transform duration-300
+               hover:-translate-y-1 hover:shadow-[0_8px_30px_-8px_rgba(199,0,57,0.7)]
+               active:scale-[0.98]"
+      >
+        <!-- Shimmer overlay on hover -->
+        <div
+          class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          style="background: linear-gradient(105deg, transparent 40%, rgba(255,245,224,0.08) 50%, transparent 60%);"
+        ></div>
 
-        <div class="agentes" >
-            <a class="agente" *ngFor="let agente of agentesData" href="/agentes/{{agente.uuid}}" target="_blank">
-                <div class="agente-name">
-                    <span>{{agente.displayName}}</span>
-                </div>
-                <div class="agente-img">
-                    <img src="{{agente.fullPortrait}}" alt="">
-                </div>
-            </a>
+        <span class="font-display font-bold text-sm text-cream uppercase tracking-wide z-10 text-center">
+          {{ agente.displayName }}
+        </span>
+        <div class="w-full flex justify-center z-10">
+          <img
+            src="{{ agente.fullPortrait }}"
+            alt="{{ agente.displayName }}"
+            class="w-[180px] transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
         </div>
+      </a>
     </div>
-
-    
-
+  </div>
 </section>

@@ -1,63 +1,96 @@
 <footer
-  class="relative w-full z-30 border-t border-white/5 ml-8 md:ml-[230px] md:w-[calc(100%-230px)]"
-  style="background: linear-gradient(to top, #1a0009, #2c010d);"
+  class="relative z-30 ml-8 w-full border-t border-white/10 md:ml-[230px] md:w-[calc(100%-230px)]"
+  style="background: linear-gradient(to top, #140008, #24010d 55%, #2c010d);"
 >
-  <div class="px-8 py-6 flex flex-row items-center justify-between gap-4 flex-wrap">
+  <div
+    class="flex flex-col items-center justify-between gap-6 px-6 py-7 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5 md:px-10"
+  >
 
-    <!-- Brand -->
-    <div class="flex items-center gap-3">
-      <div class="w-[3px] h-5 bg-crimson rounded-full"></div>
-      <span class="font-display font-black text-sm uppercase tracking-tight text-cream/80 select-none">
-        About <span class="font-light text-cream/40">Valorant</span>
+    <nav aria-label="Redes e portfólio" class="order-2 sm:order-1">
+      <ul class="m-0 flex list-none flex-row items-center gap-2 p-0">
+        <li>
+          <a
+            href="https://github.com/WasDavidOliveira"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl
+                   border border-white/15 bg-gradient-to-b from-white/[0.12] to-white/[0.03]
+                   text-lg text-cream/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_4px_16px_-4px_rgba(0,0,0,0.5)]
+                   transition-all duration-300 ease-out
+                   hover:-translate-y-1 hover:border-crimson/55 hover:text-cream
+                   hover:from-crimson/35 hover:to-crimson/10 hover:shadow-[0_12px_32px_-8px_rgba(199,0,57,0.55),inset_0_1px_0_rgba(255,255,255,0.12)]
+                   active:scale-[0.96]
+                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson/70"
+            aria-label="GitHub"
+          >
+            <span
+              class="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br from-white/25 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              aria-hidden="true"
+            ></span>
+            <i class="fa-brands fa-github relative z-[1] text-[1.15rem]"></i>
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://www.linkedin.com/in/daviddenisson/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl
+                   border border-white/15 bg-gradient-to-b from-white/[0.12] to-white/[0.03]
+                   text-lg text-cream/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_4px_16px_-4px_rgba(0,0,0,0.5)]
+                   transition-all duration-300 ease-out
+                   hover:-translate-y-1 hover:border-crimson/55 hover:text-cream
+                   hover:from-crimson/35 hover:to-crimson/10 hover:shadow-[0_12px_32px_-8px_rgba(199,0,57,0.55),inset_0_1px_0_rgba(255,255,255,0.12)]
+                   active:scale-[0.96]
+                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson/70"
+            aria-label="LinkedIn"
+          >
+            <span
+              class="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br from-white/25 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              aria-hidden="true"
+            ></span>
+            <i class="fa-brands fa-linkedin relative z-[1] text-[1.15rem]"></i>
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://daviddenisson.com.br"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl
+                   border border-white/15 bg-gradient-to-b from-white/[0.12] to-white/[0.03]
+                   text-lg text-cream/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.14),0_4px_16px_-4px_rgba(0,0,0,0.5)]
+                   transition-all duration-300 ease-out
+                   hover:-translate-y-1 hover:border-crimson/55 hover:text-cream
+                   hover:from-crimson/35 hover:to-crimson/10 hover:shadow-[0_12px_32px_-8px_rgba(199,0,57,0.55),inset_0_1px_0_rgba(255,255,255,0.12)]
+                   active:scale-[0.96]
+                   focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-crimson/70"
+            aria-label="Portfólio"
+          >
+            <span
+              class="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-br from-white/25 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              aria-hidden="true"
+            ></span>
+            <i class="fa-solid fa-briefcase relative z-[1] text-[1.05rem]"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div
+      class="order-1 flex items-center gap-3 sm:order-2 sm:border-l sm:border-white/10 sm:pl-6 md:pl-8"
+    >
+      <div class="h-6 w-[3px] shrink-0 rounded-full bg-gradient-to-b from-crimson to-crimson-dark"></div>
+      <span class="select-none font-display text-sm font-black uppercase tracking-tight text-cream">
+        About <span class="font-light text-cream/45">Valorant</span>
       </span>
     </div>
 
-    <!-- Copyright -->
-    <p class="text-cream/30 text-xs font-body tracking-wide m-0 order-last sm:order-none">
+    <p
+      class="order-3 m-0 text-center font-body text-xs tracking-wide text-cream/45 sm:text-right"
+    >
       © David Oliveira 2026
     </p>
 
-    <!-- Social links -->
-    <ul class="flex flex-row items-center gap-2 list-none p-0 m-0">
-      <li>
-        <a
-          href="https://github.com/WasDavidOliveira"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center justify-center w-9 h-9 rounded-lg text-cream/50 text-base
-                 border border-white/8 bg-white/5
-                 transition-all duration-200 hover:text-cream hover:bg-crimson/70 hover:border-crimson/50 hover:scale-105 active:scale-95"
-          aria-label="GitHub"
-        >
-          <i class="fa-brands fa-github"></i>
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://www.linkedin.com/in/daviddenisson/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center justify-center w-9 h-9 rounded-lg text-cream/50 text-base
-                 border border-white/8 bg-white/5
-                 transition-all duration-200 hover:text-cream hover:bg-crimson/70 hover:border-crimson/50 hover:scale-105 active:scale-95"
-          aria-label="LinkedIn"
-        >
-          <i class="fa-brands fa-linkedin"></i>
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://daviddenisson.com.br"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="flex items-center justify-center w-9 h-9 rounded-lg text-cream/50 text-base
-                 border border-white/8 bg-white/5
-                 transition-all duration-200 hover:text-cream hover:bg-crimson/70 hover:border-crimson/50 hover:scale-105 active:scale-95"
-          aria-label="Portfolio"
-        >
-          <i class="fa-solid fa-briefcase"></i>
-        </a>
-      </li>
-    </ul>
   </div>
 </footer>

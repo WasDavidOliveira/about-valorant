@@ -1,45 +1,34 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AgentesSpecificService } from 'src/app/services/agentes-specific.service';
-import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-agente-specific',
   templateUrl: './agente-specific.component.html',
   styleUrls: ['./agente-specific.component.css']
 })
-export class AgenteSpecificComponent {
-
-
-  constructor(private route: ActivatedRoute, private AgentesSpecificService: AgentesSpecificService, private router: Router) {
-    // Você pode acessar os parâmetros da URL aqui.
-  }
-
+export class AgenteSpecificComponent implements OnInit {
 
   agente: any = {};
 
-  ngOnInit() {
+  constructor(
+    protected route: ActivatedRoute,
+    protected agentesSpecificService: AgentesSpecificService,
+    protected router: Router
+  ) {}
 
-
-    this.route.params.subscribe(params => {
-
-      
-      let id = params['id']; 
-      console.log('ID da URL:https://valorant-api.com/v1/agents/' + id + '?language=pt-BR');
-
-      this.AgentesSpecificService.getAgenteInfo(id).subscribe((response: any) => {
-
-        this.agente = response.data;
-
-        console.log(this.agente);
-        
-      
-      }, (error => {
-        this.router.navigate(['/']); // Redireciona o usuário para a página inicial
-      }));
-
+  ngOnInit(): void {
+    this.route.params.subscribe((params) => {
+      const id = params['id'];
+      this.agentesSpecificService.getAgenteInfo(id).subscribe({
+        next: (response: any) => {
+          this.agente = response.data;
+        },
+        error: () => {
+          this.router.navigate(['/']);
+        },
+      });
     });
   }
 

@@ -1,46 +1,58 @@
-/* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* CSS Custom Properties — kept for legacy compatibility */
 :root {
-
-    --font-family-1: 'Montserrat', sans-serif;
-    --font-family-2: 'Raleway', sans-serif;
-
-    --primary-color: #141E46;
-    --secondary-color: #C70039;
-    --secondary-color-base: #FF6969;
-
-
-
-    --white-color: #FFF5E0;
-    --black-color: #040D12;
-    --dark-red: #2C010D;
-
+  --font-family-1: 'Outfit', 'Montserrat', sans-serif;
+  --font-family-2: 'Raleway', sans-serif;
+  --primary-color: #141E46;
+  --secondary-color: #C70039;
+  --secondary-color-base: #FF6969;
+  --white-color: #FFF5E0;
+  --black-color: #040D12;
+  --dark-red: #2C010D;
 }
 
-*{
-    transition: 0.4s ease;
-
+/* Base resets */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
+
+app-root {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+}
+
 body {
-    position: relative;
-    width: 100vw;
-    min-height: 100vh;
-    font-family: var(--font-family-2);
-    background-image: linear-gradient(to right top, #2c010d, #380313, #450217, #52011a, #60001c);
-    color: var(--white-color);
-    padding: 0;
-    margin: 0;
-    overflow-x: hidden;
-
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  font-family: var(--font-family-2);
+  background-color: #6e001f;
+  color: var(--white-color);
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
 }
 
-body::-webkit-scrollbar{
-    width: 13px;
-    background: var(--secondary-color);
+/* Custom scrollbars — global */
+body::-webkit-scrollbar {
+  width: 10px;
+  background: var(--secondary-color);
 }
 
-body::-webkit-scrollbar-thumb{
-    background: var(--white-color);
-    border-radius: 10px;
+body::-webkit-scrollbar-thumb {
+  background: var(--white-color);
+  border-radius: 9999px;
+}
+
+/* Anchor base */
+a {
+  text-decoration: none;
+  color: inherit;
 }

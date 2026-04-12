@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ValorantApiCacheInterceptor } from './interceptors/valorant-api-cache.interceptor';
+import { ScrollRevealDirective } from './directives/scroll-reveal.directive';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -42,14 +45,18 @@ import { CardPlayersPageComponent } from './pages/card-players-page/card-players
     TemporadasPageComponent,
     TemporadasComponentComponent,
     CardsPlayersServiceComponent,
-    CardPlayersPageComponent
+    CardPlayersPageComponent,
+    ScrollRevealDirective,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ValorantApiCacheInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

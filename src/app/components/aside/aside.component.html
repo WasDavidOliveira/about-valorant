@@ -1,12 +1,114 @@
-<aside [ngClass]="{'active' : active == true}">
-    <div class="aside-content">
-        <ul>
-            <li [ngClass]="{'active' : page == 'home' || page == 'agente'}"><a href="/"><i class="fa-solid fa-users"></i><span>Agentes</span></a></li>
-            <li [ngClass]="{'active' : page == 'mapas'}"><a href="/mapas"><i class="fa-solid fa-map"></i><span>Mapas</span></a></li>
-            <li [ngClass]="{'active' : page == 'armas'}"><a href="/armas"><i class="fa-solid fa-gun"></i><span>Armas</span></a></li>
-            <li [ngClass]="{'active' : page == 'elos'}"><a href="/elos"><i class="fa-solid fa-medal"></i><span>Elos</span></a></li>
-            <li [ngClass]="{'active' : page == 'temporadas'}"><a href="/temporadas"><i class="fa-solid fa-calendar"></i><span>Temporadas</span></a></li>
-            <li [ngClass]="{'active' : page == 'cards'}"><a href="/cards"><i class="fa-solid fa-id-card-clip"></i><span>Cards de jogadores</span></a></li>
-        </ul>
-    </div>
+<!-- Desktop sidebar: always visible md+ -->
+<aside
+  class="hidden md:flex flex-col h-screen w-[230px] fixed top-[77px] left-0 z-40 animate-slide-down border-r border-crimson/20"
+  style="background: #120006;"
+>
+  <div class="px-5 pt-5 pb-3">
+    <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/25 select-none">
+      Navigation
+    </span>
+  </div>
+
+  <nav class="px-3 flex flex-col gap-1">
+    <a
+      routerLink="/"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'home' || page === 'agente'}"
+    >
+      <span *ngIf="page === 'home' || page === 'agente'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
+      <i class="fa-solid fa-users w-4 text-center"></i>
+      <span class="whitespace-nowrap">Agents</span>
+    </a>
+    <a
+      routerLink="/mapas"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'mapas'}"
+    >
+      <span *ngIf="page === 'mapas'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
+      <i class="fa-solid fa-map w-4 text-center"></i>
+      <span class="whitespace-nowrap">Maps</span>
+    </a>
+    <a
+      routerLink="/armas"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'armas'}"
+    >
+      <span *ngIf="page === 'armas'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
+      <i class="fa-solid fa-gun w-4 text-center"></i>
+      <span class="whitespace-nowrap">Weapons</span>
+    </a>
+    <a
+      routerLink="/elos"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'elos'}"
+    >
+      <span *ngIf="page === 'elos'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
+      <i class="fa-solid fa-medal w-4 text-center"></i>
+      <span class="whitespace-nowrap">Ranks</span>
+    </a>
+    <a
+      routerLink="/temporadas"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'temporadas'}"
+    >
+      <span *ngIf="page === 'temporadas'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
+      <i class="fa-solid fa-calendar w-4 text-center"></i>
+      <span class="whitespace-nowrap">Seasons</span>
+    </a>
+    <a
+      routerLink="/cards"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'cards'}"
+    >
+      <span *ngIf="page === 'cards'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
+      <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
+      <span class="whitespace-nowrap">Player cards</span>
+    </a>
+  </nav>
+</aside>
+
+<!-- Mobile overlay sidebar -->
+<aside
+  *ngIf="active"
+  [@slideIn]="slideState"
+  class="md:hidden fixed top-[77px] left-0 w-full h-screen z-40 border-t border-crimson/20"
+  style="background: #120006;"
+>
+  <div class="px-5 pt-5 pb-3">
+    <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/25 select-none">
+      Navigation
+    </span>
+  </div>
+  <nav class="px-3 flex flex-col gap-1">
+    <a routerLink="/" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'home' || page === 'agente'}">
+      <i class="fa-solid fa-users w-4 text-center"></i>
+      <span>Agents</span>
+    </a>
+    <a routerLink="/mapas" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'mapas'}">
+      <i class="fa-solid fa-map w-4 text-center"></i>
+      <span>Maps</span>
+    </a>
+    <a routerLink="/armas" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'armas'}">
+      <i class="fa-solid fa-gun w-4 text-center"></i>
+      <span>Weapons</span>
+    </a>
+    <a routerLink="/elos" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'elos'}">
+      <i class="fa-solid fa-medal w-4 text-center"></i>
+      <span>Ranks</span>
+    </a>
+    <a routerLink="/temporadas" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'temporadas'}">
+      <i class="fa-solid fa-calendar w-4 text-center"></i>
+      <span>Seasons</span>
+    </a>
+    <a routerLink="/cards" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'cards'}">
+      <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
+      <span>Player cards</span>
+    </a>
+  </nav>
 </aside>

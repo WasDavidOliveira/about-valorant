@@ -1,14 +1,36 @@
-<section>
-    <div class="container">
-        <div class="title">Temporadas</div>
-        <div class="temporadas">
-            <div class="temporada" *ngFor="let temporada of temporadas">
-                <div class="temporada-name">{{temporada.displayName}}</div>
-                <div class="temporada-data">
-                    <span>Start: {{temporada.startTime | date: 'dd/MM/yyyy'}}</span>
-                    <span>End: {{temporada.endTime | date: 'dd/MM/yyyy'}}</span>
-                </div>
-            </div>
+<section class="w-full min-h-screen overflow-hidden">
+  <div class="mt-[112px] mb-16 ml-[300px] md:ml-8 w-[calc(100%-300px)] md:w-[calc(100%-2rem)] flex flex-col gap-5">
+
+    <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down px-2">
+      Temporadas
+    </h1>
+
+    <div
+      class="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8 px-2"
+      [@listAnimation]="temporadas.length"
+    >
+      <div
+        *ngFor="let temporada of temporadas"
+        class="group bg-crimson rounded-lg p-4 flex flex-col gap-4 cursor-default
+               border border-crimson-dark/30
+               transition-all duration-300
+               hover:-translate-y-0.5 hover:shadow-[0_8px_30px_-8px_rgba(199,0,57,0.5)]"
+      >
+        <h3 class="text-lg font-display font-semibold text-cream tracking-tight">
+          {{ temporada.displayName }}
+        </h3>
+        <div class="flex flex-col gap-2 text-sm font-body text-cream/70">
+          <span class="flex items-center gap-2">
+            <i class="fa-solid fa-calendar-day text-cream/50 w-4"></i>
+            Start: <strong class="text-cream font-mono">{{ temporada.startTime | date: 'dd/MM/yyyy' }}</strong>
+          </span>
+          <span class="flex items-center gap-2">
+            <i class="fa-solid fa-calendar-check text-cream/50 w-4"></i>
+            End: <strong class="text-cream font-mono">{{ temporada.endTime | date: 'dd/MM/yyyy' }}</strong>
+          </span>
         </div>
+      </div>
     </div>
+
+  </div>
 </section>

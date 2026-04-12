@@ -1,11 +1,12 @@
 <section class="w-full min-h-screen overflow-hidden" style="background: #2e000d;">
-  <div class="mt-[112px] mb-16 ml-8 md:ml-[230px] w-full md:w-[calc(100%-230px)] flex flex-col gap-6">
+  <div class="mt-[112px] mb-16 box-border w-full min-w-0 max-w-full pl-4 pr-4 sm:pl-6 sm:pr-6 md:pl-[calc(230px+2rem)] md:pr-10">
+    <div class="mx-auto flex w-full min-w-0 max-w-[1400px] flex-col gap-6">
 
-    <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down px-4">
-      Armas
+    <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down">
+      Weapons
     </h1>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       <div
         *ngFor="let arma of armas; let i = index"
         appScrollReveal
@@ -59,12 +60,13 @@
             class="w-full bg-cream text-off-black font-display font-bold text-xs uppercase tracking-widest py-2.5 rounded-lg
                    transition-all duration-200 hover:bg-cream/90 active:scale-[0.98]"
           >
-            Ver Skins
+            View skins
           </button>
         </div>
       </div>
     </div>
 
+    </div>
   </div>
 </section>
 
@@ -91,7 +93,7 @@
             class="h-7 object-contain opacity-80"
           />
           <div class="flex flex-col">
-            <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/40">Skins disponíveis</span>
+            <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/40">Available skins</span>
             <h2 class="text-lg font-display font-black text-cream uppercase tracking-tight leading-tight">
               {{ arma.displayName }}
             </h2>
@@ -101,7 +103,7 @@
           (click)="showDiv(arma.uuid)"
           class="w-8 h-8 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20
                  text-cream text-xl leading-none transition-all duration-150 active:scale-95 focus:outline-none"
-          aria-label="Fechar"
+          aria-label="Close"
         >
           ×
         </button>
@@ -124,7 +126,7 @@
                 loading="lazy"
               />
               <div *ngIf="!skin.displayIcon" class="text-cream/20 text-xs font-body italic text-center">
-                Sem imagem
+                No preview
               </div>
             </div>
             <span class="text-xs font-display font-semibold text-cream/85 tracking-tight leading-tight text-center">

@@ -32,16 +32,16 @@ const DIVISION_ORDER: readonly string[] = [
   'RADIANT',
 ];
 
-const DIVISION_LABEL_PT: Readonly<Record<string, string>> = {
-  IRON: 'Ferro',
+const DIVISION_LABEL: Readonly<Record<string, string>> = {
+  IRON: 'Iron',
   BRONZE: 'Bronze',
-  SILVER: 'Prata',
-  GOLD: 'Ouro',
-  PLATINUM: 'Platina',
-  DIAMOND: 'Diamante',
-  ASCENDANT: 'Ascendente',
-  IMMORTAL: 'Imortal',
-  RADIANT: 'Radiante',
+  SILVER: 'Silver',
+  GOLD: 'Gold',
+  PLATINUM: 'Platinum',
+  DIAMOND: 'Diamond',
+  ASCENDANT: 'Ascendant',
+  IMMORTAL: 'Immortal',
+  RADIANT: 'Radiant',
 };
 
 export function buildEloSections(tiers: CompetitiveTierDto[]): EloSectionViewModel[] {
@@ -53,7 +53,7 @@ export function buildEloSections(tiers: CompetitiveTierDto[]): EloSectionViewMod
     if (grouped.length === 0) {
       continue;
     }
-    const title = DIVISION_LABEL_PT[key];
+    const title = DIVISION_LABEL[key];
     if (!title) {
       continue;
     }

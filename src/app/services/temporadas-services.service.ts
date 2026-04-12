@@ -12,7 +12,7 @@ export class TemporadasServicesService {
 
   getTemporadas(): Observable<SeasonsApiResponseDto> {
     return this.http.get<SeasonsApiResponseDto>(
-      'https://valorant-api.com/v1/seasons?language=pt-BR&isPlayableCharacter=true'
+      'https://valorant-api.com/v1/seasons?language=en-US&isPlayableCharacter=true'
     );
   }
 

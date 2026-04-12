@@ -1,51 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  trigger,
-  transition,
-  style,
-  animate,
-  query,
-  stagger,
-} from '@angular/animations';
+
 import { AgentesService } from 'src/app/services/agentes.service';
+import {
+  AgentRoleSectionViewModel,
+  ValorantAgentsApiDto,
+  buildAgentRoleSections,
+} from 'src/app/models/agent-role-sections.model';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css'],
-  animations: [
-    trigger('listAnimation', [
-      transition('* => *', [
-        query(
-          ':enter',
-          [
-            style({ opacity: 0, transform: 'translateY(24px)' }),
-            stagger(50, [
-              animate(
-                '350ms cubic-bezier(0.16, 1, 0.3, 1)',
-                style({ opacity: 1, transform: 'translateY(0)' })
-              ),
-            ]),
-          ],
-          { optional: true }
-        ),
-      ]),
-    ]),
-  ],
 })
 export class MainComponent implements OnInit {
+  protected sections: AgentRoleSectionViewModel[] = [];
+  protected loading = true;
+  protected loadFailed = false;
+  protected readonly skeletonSlots = [0, 1, 2, 3, 4, 5, 6, 7];
 
-  agentesData: any[] = [];
-
-  constructor(private AgentesService: AgentesService) {}
+  constructor(protected agentesService: AgentesService) {}
 
   ngOnInit(): void {
-    this.getData();
+    this.agentesService.getAgentes().subscribe({
+      next: (res: ValorantAgentsApiDto) => {
+        this.sections = buildAgentRoleSections(res.data);
+        this.loading = false;
+      },
+      error: () => {
+        this.loadFailed = true;
+        this.loading = false;
+      },
+    });
   }
 
-  getData(): void {
-    this.AgentesService.getAgentes().subscribe((response: any) => {
-      this.agentesData = response.data;
-    });
+  protected revealDelay(sectionIndex: number, agentIndex: number): number {
+    return sectionIndex * 80 + agentIndex * 40;
   }
 }

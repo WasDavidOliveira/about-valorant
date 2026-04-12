@@ -3,7 +3,8 @@
   style="background: #2e000d;"
   *ngIf="agente && agente.displayName"
 >
-  <div class="ml-8 flex w-full flex-col md:ml-[230px] md:w-[calc(100%-230px)]">
+  <div class="box-border w-full min-w-0 max-w-full pl-4 pr-4 sm:pl-6 sm:pr-6 md:pl-[calc(230px+2rem)] md:pr-10">
+    <div class="mx-auto flex w-full min-w-0 max-w-[1400px] flex-col">
 
     <div class="relative h-[min(72vh,520px)] min-h-[380px] overflow-hidden border-b border-crimson-dark/25">
       <img
@@ -54,7 +55,7 @@
       >
         <div class="flex flex-col gap-3">
           <h2 class="font-display text-xs font-bold uppercase tracking-[0.2em] text-cream/40">
-            Sobre
+            About
           </h2>
           <p class="font-body text-base leading-relaxed text-cream/85">
             {{ agente.description }}
@@ -63,7 +64,7 @@
 
         <div *ngIf="agente.role" class="flex flex-col gap-3">
           <h2 class="font-display text-xs font-bold uppercase tracking-[0.2em] text-cream/40">
-            Função
+            Role
           </h2>
           <div
             class="group relative flex flex-col gap-3 overflow-hidden rounded-xl border border-crimson-dark/40 p-5
@@ -92,7 +93,7 @@
 
       <div class="flex flex-col gap-5" appScrollReveal [revealDelay]="80">
         <h2 class="font-display text-xs font-bold uppercase tracking-[0.2em] text-cream/40">
-          Habilidades
+          Abilities
         </h2>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div
@@ -128,6 +129,7 @@
         </div>
       </div>
 
+    </div>
     </div>
   </div>
 </section>

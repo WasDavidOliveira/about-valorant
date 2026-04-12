@@ -1,11 +1,12 @@
 <section class="w-full min-h-screen overflow-hidden" style="background: #2e000d;">
-  <div class="mt-[112px] mb-16 ml-8 md:ml-[230px] w-full md:w-[calc(100%-230px)] flex flex-col gap-6">
+  <div class="mt-[112px] mb-16 box-border w-full min-w-0 max-w-full pl-4 pr-4 sm:pl-6 sm:pr-6 md:pl-[calc(230px+2rem)] md:pr-10">
+    <div class="mx-auto flex w-full min-w-0 max-w-[1400px] flex-col gap-6">
 
-    <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down px-4">
-      Mapas
+    <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down">
+      Maps
     </h1>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 px-4">
+    <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
       <div
         *ngFor="let map of mapas; let i = index"
         appScrollReveal
@@ -53,5 +54,6 @@
       </div>
     </div>
 
+    </div>
   </div>
 </section>

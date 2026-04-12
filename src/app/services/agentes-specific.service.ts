@@ -5,14 +5,12 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AgentesSpecificService {
-  constructor(private http: HttpClient) { }
+  constructor(protected http: HttpClient) { }
 
   id : string = '';
 
   getAgenteInfo(id : string) {
-
-    return this.http.get(`https://valorant-api.com/v1/agents/${id}`);
-    
+    return this.http.get(`https://valorant-api.com/v1/agents/${id}?language=en-US`);
   }
 
 }

@@ -5,7 +5,7 @@
 >
   <div class="px-5 pt-5 pb-3">
     <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/25 select-none">
-      Navegação
+      Navigation
     </span>
   </div>
 
@@ -17,7 +17,7 @@
     >
       <span *ngIf="page === 'home' || page === 'agente'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-users w-4 text-center"></i>
-      <span class="whitespace-nowrap">Agentes</span>
+      <span class="whitespace-nowrap">Agents</span>
     </a>
     <a
       routerLink="/mapas"
@@ -26,7 +26,7 @@
     >
       <span *ngIf="page === 'mapas'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-map w-4 text-center"></i>
-      <span class="whitespace-nowrap">Mapas</span>
+      <span class="whitespace-nowrap">Maps</span>
     </a>
     <a
       routerLink="/armas"
@@ -35,7 +35,7 @@
     >
       <span *ngIf="page === 'armas'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-gun w-4 text-center"></i>
-      <span class="whitespace-nowrap">Armas</span>
+      <span class="whitespace-nowrap">Weapons</span>
     </a>
     <a
       routerLink="/elos"
@@ -44,7 +44,7 @@
     >
       <span *ngIf="page === 'elos'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-medal w-4 text-center"></i>
-      <span class="whitespace-nowrap">Elos</span>
+      <span class="whitespace-nowrap">Ranks</span>
     </a>
     <a
       routerLink="/temporadas"
@@ -53,7 +53,7 @@
     >
       <span *ngIf="page === 'temporadas'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-calendar w-4 text-center"></i>
-      <span class="whitespace-nowrap">Temporadas</span>
+      <span class="whitespace-nowrap">Seasons</span>
     </a>
     <a
       routerLink="/cards"
@@ -62,7 +62,7 @@
     >
       <span *ngIf="page === 'cards'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
-      <span class="whitespace-nowrap">Cards de jogadores</span>
+      <span class="whitespace-nowrap">Player cards</span>
     </a>
   </nav>
 </aside>
@@ -76,39 +76,39 @@
 >
   <div class="px-5 pt-5 pb-3">
     <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/25 select-none">
-      Navegação
+      Navigation
     </span>
   </div>
   <nav class="px-3 flex flex-col gap-1">
     <a routerLink="/" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'home' || page === 'agente'}">
       <i class="fa-solid fa-users w-4 text-center"></i>
-      <span>Agentes</span>
+      <span>Agents</span>
     </a>
     <a routerLink="/mapas" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'mapas'}">
       <i class="fa-solid fa-map w-4 text-center"></i>
-      <span>Mapas</span>
+      <span>Maps</span>
     </a>
     <a routerLink="/armas" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'armas'}">
       <i class="fa-solid fa-gun w-4 text-center"></i>
-      <span>Armas</span>
+      <span>Weapons</span>
     </a>
     <a routerLink="/elos" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'elos'}">
       <i class="fa-solid fa-medal w-4 text-center"></i>
-      <span>Elos</span>
+      <span>Ranks</span>
     </a>
     <a routerLink="/temporadas" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'temporadas'}">
       <i class="fa-solid fa-calendar w-4 text-center"></i>
-      <span>Temporadas</span>
+      <span>Seasons</span>
     </a>
     <a routerLink="/cards" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'cards'}">
       <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
-      <span>Cards de jogadores</span>
+      <span>Player cards</span>
     </a>
   </nav>
 </aside>

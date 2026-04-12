@@ -1,15 +1,16 @@
 <section class="w-full min-h-screen overflow-hidden" style="background: #2e000d;">
-  <div class="mt-[112px] mb-16 ml-8 md:ml-[230px] w-full md:w-[calc(100%-230px)] flex flex-col gap-8">
+  <div class="mt-[112px] mb-16 box-border w-full min-w-0 max-w-full pl-4 pr-4 sm:pl-6 sm:pr-6 md:pl-[calc(230px+2rem)] md:pr-10">
+    <div class="mx-auto flex w-full min-w-0 max-w-[1400px] flex-col gap-8">
 
     <header class="px-4">
-      <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down m-0">
-        Elos
+      <h1 class="m-0 text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down">
+        Ranks
       </h1>
     </header>
 
     <div *ngIf="loading" class="flex flex-col gap-6 px-4">
       <div class="h-5 w-40 rounded-md bg-cream/10 animate-pulse"></div>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         <div
           *ngFor="let _ of skeletonSlots"
           class="h-[220px] rounded-xl border border-crimson-dark/25 bg-crimson/15 animate-pulse"
@@ -18,13 +19,13 @@
     </div>
 
     <div *ngIf="!loading && loadFailed" class="px-4">
-      <p class="text-sm font-body text-cream/55 m-0 border border-white/10 rounded-xl px-4 py-6 bg-black/20">
-        Não foi possível carregar os elos. Tente atualizar a página.
+      <p class="m-0 rounded-xl border border-white/10 bg-black/20 px-4 py-6 text-sm font-body text-cream/55">
+        Could not load ranks. Please refresh the page.
       </p>
     </div>
 
     <div *ngIf="!loading && !loadFailed && sections.length === 0" class="px-4">
-      <p class="text-sm font-body text-cream/55 m-0">Nenhum elo ranqueado disponível.</p>
+      <p class="m-0 text-sm font-body text-cream/55">No competitive ranks available.</p>
     </div>
 
     <div *ngIf="!loading && !loadFailed && sections.length > 0" class="flex flex-col gap-12">
@@ -35,39 +36,39 @@
       >
         <div class="flex items-stretch gap-3 px-4">
           <span class="w-1 shrink-0 rounded-full bg-crimson" aria-hidden="true"></span>
-          <div class="flex flex-col gap-0.5 min-w-0">
+          <div class="flex min-w-0 flex-col gap-0.5">
             <h2
               [id]="'elo-cat-' + sec.key"
-              class="text-lg md:text-xl font-display font-black uppercase tracking-tight text-cream m-0 leading-none"
+              class="m-0 text-lg font-display font-black uppercase leading-none tracking-tight text-cream md:text-xl"
             >
               {{ sec.title }}
             </h2>
             <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/35">
-              {{ sec.tiers.length }} níveis
+              {{ sec.tiers.length }} tiers
             </span>
           </div>
         </div>
 
         <div
-          class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 px-4"
+          class="grid grid-cols-2 gap-4 px-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5"
         >
           <div
             *ngFor="let elo of sec.tiers; let ti = index"
             appScrollReveal
             [revealDelay]="revealDelay(si, ti)"
-            class="group relative rounded-xl overflow-hidden flex flex-col items-center justify-center gap-3 p-4 min-h-[220px] border border-crimson-dark/40
+            class="group relative flex min-h-[220px] flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-crimson-dark/40 p-4
                    transition-all duration-400
-                   hover:-translate-y-1 hover:shadow-[0_20px_50px_-10px_rgba(199,0,57,0.65)] hover:border-crimson/50"
+                   hover:-translate-y-1 hover:border-crimson/50 hover:shadow-[0_20px_50px_-10px_rgba(199,0,57,0.65)]"
             style="background: linear-gradient(160deg, #92002b 0%, #60001c 100%);"
           >
-            <div class="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-black/40 to-transparent z-[1] pointer-events-none"></div>
-            <h3 class="relative z-[2] font-display font-bold text-xs md:text-sm text-cream uppercase tracking-wide text-center leading-tight">
+            <div class="pointer-events-none absolute left-0 right-0 top-0 z-[1] h-14 bg-gradient-to-b from-black/40 to-transparent"></div>
+            <h3 class="relative z-[2] text-center text-xs font-display font-bold uppercase leading-tight tracking-wide text-cream md:text-sm">
               {{ elo.tierName }}
             </h3>
             <img
               [src]="elo.largeIcon"
               [alt]="elo.tierName"
-              class="relative z-[2] w-[100px] sm:w-[120px] max-w-[85%] object-contain transition-transform duration-500 group-hover:scale-110 group-hover:animate-float"
+              class="relative z-[2] w-[100px] max-w-[85%] object-contain transition-transform duration-500 group-hover:scale-110 group-hover:animate-float sm:w-[120px]"
               loading="lazy"
             />
           </div>
@@ -75,5 +76,6 @@
       </section>
     </div>
 
+    </div>
   </div>
 </section>

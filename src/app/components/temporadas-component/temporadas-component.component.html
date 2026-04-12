@@ -1,15 +1,16 @@
 <section class="w-full min-h-screen overflow-hidden" style="background: #2e000d;">
-  <div class="mt-[112px] mb-16 ml-8 md:ml-[230px] w-full md:w-[calc(100%-230px)] flex flex-col gap-8">
+  <div class="mt-[112px] mb-16 box-border w-full min-w-0 max-w-full pl-4 pr-4 sm:pl-6 sm:pr-6 md:pl-[calc(230px+2rem)] md:pr-10">
+    <div class="mx-auto flex w-full min-w-0 max-w-[1400px] flex-col gap-8">
 
     <header class="px-4">
-      <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down m-0">
-        Temporadas
+      <h1 class="m-0 text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down">
+        Seasons
       </h1>
     </header>
 
     <div *ngIf="loading" class="flex flex-col gap-6 px-4">
       <div class="h-5 w-48 rounded-md bg-cream/10 animate-pulse"></div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div
           *ngFor="let _ of skeletonSlots"
           class="min-h-[160px] rounded-xl border border-crimson-dark/25 bg-crimson/15 animate-pulse"
@@ -18,13 +19,13 @@
     </div>
 
     <div *ngIf="!loading && loadFailed" class="px-4">
-      <p class="text-sm font-body text-cream/55 m-0 border border-white/10 rounded-xl px-4 py-6 bg-black/20">
-        Não foi possível carregar as temporadas. Tente atualizar a página.
+      <p class="m-0 rounded-xl border border-white/10 bg-black/20 px-4 py-6 text-sm font-body text-cream/55">
+        Could not load seasons. Please refresh the page.
       </p>
     </div>
 
     <div *ngIf="!loading && !loadFailed && sections.length === 0" class="px-4">
-      <p class="text-sm font-body text-cream/55 m-0">Nenhuma temporada disponível.</p>
+      <p class="m-0 text-sm font-body text-cream/55">No seasons available.</p>
     </div>
 
     <div *ngIf="!loading && !loadFailed && sections.length > 0" class="flex flex-col gap-14">
@@ -37,36 +38,36 @@
           <span class="w-1 shrink-0 rounded-full bg-crimson" aria-hidden="true"></span>
           <h2
             [id]="'temp-sec-' + sec.sectionId"
-            class="text-lg md:text-xl font-display font-black uppercase tracking-tight text-cream m-0 leading-none min-w-0"
+            class="m-0 min-w-0 text-lg font-display font-black uppercase leading-none tracking-tight text-cream md:text-xl"
           >
             {{ sec.heading }}
           </h2>
         </div>
 
         <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 px-4"
+          class="grid grid-cols-1 gap-4 px-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
           <article
             *ngFor="let card of sec.cards; let ci = index"
             appScrollReveal
             [revealDelay]="revealDelay(si, ci)"
-            class="group relative rounded-xl overflow-hidden flex flex-col gap-4 p-5 min-h-[150px] border border-crimson-dark/40
+            class="group relative flex min-h-[150px] flex-col gap-4 overflow-hidden rounded-xl border border-crimson-dark/40 p-5
                    transition-all duration-400
-                   hover:-translate-y-1 hover:shadow-[0_20px_50px_-10px_rgba(199,0,57,0.65)] hover:border-crimson/50"
+                   hover:-translate-y-1 hover:border-crimson/50 hover:shadow-[0_20px_50px_-10px_rgba(199,0,57,0.65)]"
             style="background: linear-gradient(160deg, #92002b 0%, #60001c 100%);"
           >
-            <div class="absolute top-0 left-0 right-0 h-14 bg-gradient-to-b from-black/40 to-transparent z-[1] pointer-events-none"></div>
-            <h3 class="relative z-[2] text-base font-display font-bold text-cream tracking-tight leading-tight m-0">
+            <div class="pointer-events-none absolute left-0 right-0 top-0 z-[1] h-14 bg-gradient-to-b from-black/40 to-transparent"></div>
+            <h3 class="relative z-[2] m-0 text-base font-display font-bold leading-tight tracking-tight text-cream">
               {{ card.title }}
             </h3>
-            <div class="relative z-[2] flex flex-col gap-2.5 text-sm font-body text-cream/75 mt-auto">
+            <div class="relative z-[2] mt-auto flex flex-col gap-2.5 text-sm font-body text-cream/75">
               <span class="flex items-center gap-2">
-                <i class="fa-solid fa-calendar-day text-cream/45 w-4 shrink-0 text-center" aria-hidden="true"></i>
-                <span>Início <strong class="text-cream font-mono font-semibold">{{ card.startTime | date: 'dd/MM/yyyy' }}</strong></span>
+                <i class="fa-solid fa-calendar-day w-4 shrink-0 text-center text-cream/45" aria-hidden="true"></i>
+                <span>Starts <strong class="font-mono font-semibold text-cream">{{ card.startTime | date: 'MMM d, y' }}</strong></span>
               </span>
               <span class="flex items-center gap-2">
-                <i class="fa-solid fa-calendar-check text-cream/45 w-4 shrink-0 text-center" aria-hidden="true"></i>
-                <span>Fim <strong class="text-cream font-mono font-semibold">{{ card.endTime | date: 'dd/MM/yyyy' }}</strong></span>
+                <i class="fa-solid fa-calendar-check w-4 shrink-0 text-center text-cream/45" aria-hidden="true"></i>
+                <span>Ends <strong class="font-mono font-semibold text-cream">{{ card.endTime | date: 'MMM d, y' }}</strong></span>
               </span>
             </div>
           </article>
@@ -74,5 +75,6 @@
       </section>
     </div>
 
+    </div>
   </div>
 </section>

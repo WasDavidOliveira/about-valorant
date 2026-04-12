@@ -70,7 +70,7 @@ export function buildTemporadaSections(seasons: ValorantSeasonDto[]): TemporadaS
   orphanActs.sort((a, b) => Date.parse(a.startTime) - Date.parse(b.startTime));
   sections.push({
     sectionId: 'orphan-acts',
-    heading: 'Outros atos',
+    heading: 'Other acts',
     cards: orphanActs.map(toCardViewModel),
   });
   return sections;

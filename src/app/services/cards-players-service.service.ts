@@ -12,7 +12,7 @@ export class CardsPlayersServiceService {
 
   getCards(): Observable<PlayerCardsApiDto> {
     return this.http.get<PlayerCardsApiDto>(
-      'https://valorant-api.com/v1/playercards?language=pt-BR'
+      'https://valorant-api.com/v1/playercards?language=en-US'
     );
   }
 

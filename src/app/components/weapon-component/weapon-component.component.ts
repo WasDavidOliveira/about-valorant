@@ -11,6 +11,8 @@ import {
   ValorantWeaponShopDto,
   ValorantWeaponsApiDto,
   ValorantWeaponSkinDto,
+  WeaponCategorySectionViewModel,
+  buildWeaponCategorySections,
 } from 'src/app/models/valorant-weapon.model';
 
 @Component({
@@ -38,6 +40,10 @@ import {
 export class WeaponComponentComponent implements OnInit {
 
   protected armas: ValorantWeaponShopDto[] = [];
+  protected categorySections: WeaponCategorySectionViewModel[] = [];
+  protected loadingWeapons = true;
+  protected loadFailedWeapons = false;
+  protected readonly skeletonSlots = [0, 1, 2, 3, 4, 5];
   protected divAtiva = '';
   protected skinSearchQuery = '';
 
@@ -51,8 +57,17 @@ export class WeaponComponentComponent implements OnInit {
   }
 
   getArmas(): void {
-    this.weaponService.getArmas().subscribe((response: ValorantWeaponsApiDto) => {
-      this.armas = response.data.filter((a) => a.shopData);
+    this.loadingWeapons = true;
+    this.weaponService.getArmas().subscribe({
+      next: (response: ValorantWeaponsApiDto) => {
+        this.armas = response.data.filter((a) => a.shopData);
+        this.categorySections = buildWeaponCategorySections(this.armas);
+        this.loadingWeapons = false;
+      },
+      error: () => {
+        this.loadFailedWeapons = true;
+        this.loadingWeapons = false;
+      },
     });
   }
 
@@ -89,6 +104,10 @@ export class WeaponComponentComponent implements OnInit {
       return trimmed;
     }
     return skin.displayName;
+  }
+
+  protected revealDelay(sectionIndex: number, weaponIndex: number): number {
+    return sectionIndex * 70 + weaponIndex * 38;
   }
 
   executeCustomAction(event: MouseEvent): void {

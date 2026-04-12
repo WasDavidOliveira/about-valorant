@@ -1,69 +1,130 @@
 <section class="w-full min-h-screen overflow-hidden" style="background: #2e000d;">
   <div class="mt-[112px] mb-16 box-border w-full min-w-0 max-w-full pl-4 pr-4 sm:pl-6 sm:pr-6 md:pl-[calc(230px+2rem)] md:pr-10">
-    <div class="mx-auto flex w-full min-w-0 max-w-[1400px] flex-col gap-6">
+    <div class="mx-auto flex w-full min-w-0 max-w-[1400px] flex-col gap-8 text-left">
 
-    <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down">
-      Weapons
-    </h1>
+    <header class="flex flex-col gap-1">
+      <h1 class="m-0 text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down">
+        Weapons
+      </h1>
+      <p class="m-0 max-w-2xl text-xs font-body leading-relaxed text-cream/45 sm:text-sm">
+        Browse by store category—from sidearms to heavy ordnance—mirroring how Valorant groups buys so you can scan the arsenal like the agent roster.
+      </p>
+    </header>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-      <div
-        *ngFor="let arma of armas; let i = index"
-        appScrollReveal
-        [revealDelay]="i * 40"
-        class="group relative rounded-xl overflow-hidden flex flex-col border border-crimson-dark/40
-               transition-all duration-400
-               hover:-translate-y-1 hover:shadow-[0_20px_50px_-10px_rgba(199,0,57,0.65)] hover:border-crimson/50"
-        style="background: linear-gradient(160deg, #92002b 0%, #60001c 100%);"
-      >
-        <div class="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/40 to-transparent z-[1] pointer-events-none"></div>
-        <!-- Image area -->
-        <div class="relative z-[2] flex items-center justify-center px-6 pt-6 pb-4 min-h-[110px]">
-          <img
-            [src]="arma.displayIcon"
-            [alt]="arma.displayName"
-            class="w-full max-h-[80px] object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]
-                   transition-transform duration-500 group-hover:scale-110"
-            loading="lazy"
-          />
-        </div>
-
-        <!-- Info area -->
-        <div class="relative z-[2] flex flex-col gap-3 p-4 flex-1">
-          <!-- Name + category -->
-          <div class="flex flex-col gap-1">
-            <h3 class="text-base font-display font-black text-cream tracking-tight leading-tight">
-              {{ arma.displayName }}
-            </h3>
-            <span class="text-[10px] font-display font-bold uppercase tracking-[0.15em] text-cream/50">
-              {{ arma.shopData.category }}
-            </span>
-          </div>
-
-          <!-- Price -->
-          <div class="flex items-center gap-1.5 mt-auto">
-            <svg class="w-3 h-3 text-cream/50" viewBox="0 0 12 12" fill="currentColor">
-              <path d="M6 0L7.5 4.5H12L8.25 7.5L9.75 12L6 9L2.25 12L3.75 7.5L0 4.5H4.5Z"/>
-            </svg>
-            <span class="text-sm font-mono font-bold text-cream">
-              {{ arma.shopData.cost }}
-            </span>
-            <span class="text-xs text-cream/40 font-body">VP</span>
+    <div *ngIf="loadingWeapons" class="flex flex-col gap-10">
+      <div *ngFor="let _ of [0,1,2]" class="flex flex-col gap-4">
+        <div class="flex items-start gap-3">
+          <div class="h-12 w-1 shrink-0 rounded-full bg-cream/15"></div>
+          <div class="h-12 w-12 shrink-0 rounded-xl bg-cream/10"></div>
+          <div class="flex flex-1 flex-col gap-2 pt-1">
+            <div class="h-5 w-48 rounded-md bg-cream/10"></div>
+            <div class="h-3 w-full max-w-md rounded-md bg-cream/10"></div>
           </div>
         </div>
-
-        <!-- Button -->
-        <div class="relative z-[2] px-4 pb-4">
-          <button
-            type="button"
-            (click)="showDiv(arma.uuid)"
-            class="w-full bg-cream text-off-black font-display font-bold text-xs uppercase tracking-widest py-2.5 rounded-lg
-                   transition-all duration-200 hover:bg-cream/90 active:scale-[0.98]"
-          >
-            View skins
-          </button>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div
+            *ngFor="let __ of skeletonSlots"
+            class="h-[220px] rounded-xl border border-crimson-dark/25 bg-crimson/15"
+          ></div>
         </div>
       </div>
+    </div>
+
+    <div *ngIf="!loadingWeapons && loadFailedWeapons">
+      <p class="m-0 rounded-xl border border-white/10 bg-black/20 px-4 py-6 text-sm font-body text-cream/55">
+        Could not load weapons. Please refresh the page.
+      </p>
+    </div>
+
+    <div *ngIf="!loadingWeapons && !loadFailedWeapons && categorySections.length === 0">
+      <p class="m-0 text-sm font-body text-cream/55">No weapons available.</p>
+    </div>
+
+    <div *ngIf="!loadingWeapons && !loadFailedWeapons && categorySections.length > 0" class="flex flex-col gap-14">
+      <section
+        *ngFor="let sec of categorySections; let si = index"
+        class="flex flex-col gap-5"
+        [attr.aria-labelledby]="'weapon-cat-' + sec.sectionId"
+      >
+        <div class="flex items-start gap-3 text-left">
+          <span class="h-12 w-1 shrink-0 rounded-full bg-crimson sm:h-14" aria-hidden="true"></span>
+          <div class="flex min-w-0 flex-1 flex-row items-start gap-3 sm:gap-4">
+            <div
+              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-crimson-dark/40 sm:h-14 sm:w-14"
+              style="background: linear-gradient(160deg, #92002b 0%, #60001c 100%);"
+            >
+              <i
+                [attr.class]="sec.iconClass + ' text-base text-cream/95 sm:text-lg'"
+                aria-hidden="true"
+              ></i>
+            </div>
+            <div class="flex min-w-0 flex-1 flex-col gap-1 pt-0.5">
+              <h2
+                [id]="'weapon-cat-' + sec.sectionId"
+                class="m-0 text-lg font-display font-black uppercase leading-none tracking-tight text-cream md:text-xl"
+              >
+                {{ sec.title }}
+              </h2>
+              <p class="m-0 line-clamp-2 text-xs font-body leading-snug text-cream/50 sm:text-sm sm:leading-relaxed">
+                {{ sec.description }}
+              </p>
+              <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/35">
+                {{ sec.weapons.length }} {{ sec.weapons.length === 1 ? 'weapon' : 'weapons' }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div
+            *ngFor="let arma of sec.weapons; let wi = index"
+            appScrollReveal
+            [revealDelay]="revealDelay(si, wi)"
+            class="group relative flex min-w-0 flex-col overflow-hidden rounded-xl border border-crimson-dark/40
+                   transition-all duration-400
+                   hover:-translate-y-1 hover:border-crimson/50 hover:shadow-[0_20px_50px_-10px_rgba(199,0,57,0.65)]"
+            style="background: linear-gradient(160deg, #92002b 0%, #60001c 100%);"
+          >
+            <div class="pointer-events-none absolute left-0 right-0 top-0 z-[1] h-16 bg-gradient-to-b from-black/40 to-transparent"></div>
+            <div class="relative z-[2] flex min-h-[110px] items-center justify-center px-6 pb-4 pt-6">
+              <img
+                [src]="arma.displayIcon"
+                [alt]="arma.displayName"
+                class="w-full max-h-[80px] object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]
+                       transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+            </div>
+
+            <div class="relative z-[2] flex flex-1 flex-col gap-3 p-4">
+              <h3 class="text-base font-display font-black leading-tight tracking-tight text-cream">
+                {{ arma.displayName }}
+              </h3>
+
+              <div class="mt-auto flex items-center gap-1.5">
+                <svg class="h-3 w-3 text-cream/50" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true">
+                  <path d="M6 0L7.5 4.5H12L8.25 7.5L9.75 12L6 9L2.25 12L3.75 7.5L0 4.5H4.5Z"/>
+                </svg>
+                <span class="font-mono text-sm font-bold text-cream">
+                  {{ arma.shopData.cost }}
+                </span>
+                <span class="font-body text-xs text-cream/40">VP</span>
+              </div>
+            </div>
+
+            <div class="relative z-[2] px-4 pb-4">
+              <button
+                type="button"
+                (click)="showDiv(arma.uuid)"
+                class="w-full rounded-lg bg-cream py-2.5 font-display text-xs font-bold uppercase tracking-widest text-off-black
+                       transition-all duration-200 hover:bg-cream/90 active:scale-[0.98]"
+              >
+                View skins
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
 
     </div>

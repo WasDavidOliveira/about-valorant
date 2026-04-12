@@ -1,15 +1,44 @@
-<section>
-    <div class="container">
-        <div class="title">Mapas</div>
-        <div class="maps">
-            <div class="map" *ngFor="let map of mapas">
-                <div class="map-text">
-                    <div class="map-name">{{map.displayName}}</div>
-                    <div class="map-description">{{map.narrativeDescription}}</div>
-    
-                </div>
-                <div class="map-image"><img src="{{map.splash}}" alt="{{map.displayName}}"></div>
-            </div>
+<section class="w-full min-h-screen overflow-hidden">
+  <div class="mt-[112px] mb-16 ml-[300px] md:ml-8 w-[calc(100%-300px)] md:w-[calc(100%-2rem)] flex flex-col gap-5">
+
+    <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down px-2">
+      Mapas
+    </h1>
+
+    <div class="grid grid-cols-3 md:grid-cols-1 gap-10 px-2">
+      <div
+        *ngFor="let map of mapas; let i = index"
+        appScrollReveal
+        [revealDelay]="i * 80"
+        class="group relative w-full h-[270px] rounded-lg overflow-hidden cursor-default
+               shadow-[0_4px_20px_-5px_rgba(0,0,0,0.5)]
+               transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_12px_40px_-10px_rgba(199,0,57,0.4)]"
+      >
+        <!-- Background image -->
+        <img
+          src="{{ map.splash }}"
+          alt="{{ map.displayName }}"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+        />
+
+        <!-- Gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+        <!-- Text overlay -->
+        <div
+          class="map-text-overlay absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-2
+                 max-h-[120px] overflow-y-auto bg-crimson/90 backdrop-blur-sm z-10"
+        >
+          <h3 class="text-lg font-display font-black text-cream tracking-tight leading-tight">
+            {{ map.displayName }}
+          </h3>
+          <p class="text-xs font-body text-cream/80 leading-relaxed">
+            {{ map.narrativeDescription }}
+          </p>
         </div>
+      </div>
     </div>
+
+  </div>
 </section>

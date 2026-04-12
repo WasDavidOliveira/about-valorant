@@ -1,17 +1,33 @@
-<section>
-    <div class="container">
-        <div class="title">Elos</div>
-        <div class="elos">
-            <div class="elo" *ngFor="let elo of elos.tiers" [ngClass]="{'active' : elo.largeIcon}">
-                <div *ngIf="elo.largeIcon" >
-                    <div class="elo-name">
-                        {{elo.tierName}}
-                    </div>
-                    <div class="elo-image">
-                        <img src="{{elo.largeIcon}}" alt="">
-                    </div>
-                </div>
-            </div>
+<section class="w-full min-h-screen overflow-hidden">
+  <div class="mt-[112px] mb-16 ml-[300px] md:ml-8 w-[calc(100%-300px)] md:w-[calc(100%-2rem)] flex flex-col gap-5">
+
+    <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down px-2">
+      Elos
+    </h1>
+
+    <div class="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-5 px-2" *ngIf="elos">
+      <ng-container *ngFor="let elo of elos.tiers; let i = index">
+        <div
+          *ngIf="elo.largeIcon"
+          appScrollReveal
+          [revealDelay]="i * 60"
+          class="group relative bg-crimson rounded-xl overflow-hidden h-[300px] flex flex-col items-center justify-center gap-4 p-4
+                 transition-all duration-500
+                 hover:-translate-y-1 hover:shadow-[0_12px_40px_-10px_rgba(199,0,57,0.6)]
+                 cursor-default"
+        >
+          <h3 class="font-display font-bold text-base text-cream uppercase tracking-wide z-10">
+            {{ elo.tierName }}
+          </h3>
+          <img
+            src="{{ elo.largeIcon }}"
+            alt="{{ elo.tierName }}"
+            class="w-[125px] md:w-[80%] object-contain transition-transform duration-500 group-hover:scale-110 group-hover:animate-float z-10"
+            loading="lazy"
+          />
         </div>
+      </ng-container>
     </div>
+
+  </div>
 </section>

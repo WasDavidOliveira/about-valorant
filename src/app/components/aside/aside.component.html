@@ -11,7 +11,7 @@
 
   <nav class="px-3 flex flex-col gap-1">
     <a
-      href="/"
+      routerLink="/"
       class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'home' || page === 'agente'}"
     >
@@ -20,7 +20,7 @@
       <span class="whitespace-nowrap">Agentes</span>
     </a>
     <a
-      href="/mapas"
+      routerLink="/mapas"
       class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'mapas'}"
     >
@@ -29,7 +29,7 @@
       <span class="whitespace-nowrap">Mapas</span>
     </a>
     <a
-      href="/armas"
+      routerLink="/armas"
       class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'armas'}"
     >
@@ -38,7 +38,7 @@
       <span class="whitespace-nowrap">Armas</span>
     </a>
     <a
-      href="/elos"
+      routerLink="/elos"
       class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'elos'}"
     >
@@ -47,7 +47,7 @@
       <span class="whitespace-nowrap">Elos</span>
     </a>
     <a
-      href="/temporadas"
+      routerLink="/temporadas"
       class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'temporadas'}"
     >
@@ -56,7 +56,7 @@
       <span class="whitespace-nowrap">Temporadas</span>
     </a>
     <a
-      href="/cards"
+      routerLink="/cards"
       class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'cards'}"
     >
@@ -80,32 +80,32 @@
     </span>
   </div>
   <nav class="px-3 flex flex-col gap-1">
-    <a href="/" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+    <a routerLink="/" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'home' || page === 'agente'}">
       <i class="fa-solid fa-users w-4 text-center"></i>
       <span>Agentes</span>
     </a>
-    <a href="/mapas" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+    <a routerLink="/mapas" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'mapas'}">
       <i class="fa-solid fa-map w-4 text-center"></i>
       <span>Mapas</span>
     </a>
-    <a href="/armas" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+    <a routerLink="/armas" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'armas'}">
       <i class="fa-solid fa-gun w-4 text-center"></i>
       <span>Armas</span>
     </a>
-    <a href="/elos" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+    <a routerLink="/elos" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'elos'}">
       <i class="fa-solid fa-medal w-4 text-center"></i>
       <span>Elos</span>
     </a>
-    <a href="/temporadas" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+    <a routerLink="/temporadas" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'temporadas'}">
       <i class="fa-solid fa-calendar w-4 text-center"></i>
       <span>Temporadas</span>
     </a>
-    <a href="/cards" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+    <a routerLink="/cards" (click)="fecharMenuMobile()" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
       [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'cards'}">
       <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
       <span>Cards de jogadores</span>

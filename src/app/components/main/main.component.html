@@ -13,8 +13,7 @@
     >
       <a
         *ngFor="let agente of agentesData"
-        href="/agentes/{{ agente.uuid }}"
-        target="_blank"
+        [routerLink]="['/agentes', agente.uuid]"
         class="group relative rounded-xl overflow-hidden cursor-pointer h-[280px]
                border border-crimson-dark/40
                transition-all duration-400

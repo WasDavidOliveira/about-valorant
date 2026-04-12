@@ -47,4 +47,8 @@ export class AsideComponent implements OnInit {
   get slideState(): string {
     return this.active ? 'visible' : 'hidden';
   }
+
+  fecharMenuMobile(): void {
+    this.dataService.atualizarValor(false);
+  }
 }

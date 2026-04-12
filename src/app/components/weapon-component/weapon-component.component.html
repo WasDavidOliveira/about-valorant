@@ -1,4 +1,4 @@
-<section class="w-full min-h-screen overflow-hidden">
+<section class="w-full min-h-screen overflow-hidden" style="background: #2e000d;">
   <div class="mt-[112px] mb-16 ml-8 md:ml-[230px] w-full md:w-[calc(100%-230px)] flex flex-col gap-6">
 
     <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down px-4">
@@ -10,11 +10,14 @@
         *ngFor="let arma of armas; let i = index"
         appScrollReveal
         [revealDelay]="i * 40"
-        class="group bg-crimson/60 border border-crimson-dark/30 rounded-xl overflow-hidden flex flex-col
-               transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_40px_-10px_rgba(199,0,57,0.55)] hover:border-crimson/60"
+        class="group relative rounded-xl overflow-hidden flex flex-col border border-crimson-dark/40
+               transition-all duration-400
+               hover:-translate-y-1 hover:shadow-[0_20px_50px_-10px_rgba(199,0,57,0.65)] hover:border-crimson/50"
+        style="background: linear-gradient(160deg, #92002b 0%, #60001c 100%);"
       >
+        <div class="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-black/40 to-transparent z-[1] pointer-events-none"></div>
         <!-- Image area -->
-        <div class="relative flex items-center justify-center px-6 pt-6 pb-4 bg-black/10 min-h-[110px]">
+        <div class="relative z-[2] flex items-center justify-center px-6 pt-6 pb-4 min-h-[110px]">
           <img
             [src]="arma.displayIcon"
             [alt]="arma.displayName"
@@ -25,7 +28,7 @@
         </div>
 
         <!-- Info area -->
-        <div class="flex flex-col gap-3 p-4 flex-1">
+        <div class="relative z-[2] flex flex-col gap-3 p-4 flex-1">
           <!-- Name + category -->
           <div class="flex flex-col gap-1">
             <h3 class="text-base font-display font-black text-cream tracking-tight leading-tight">
@@ -49,7 +52,7 @@
         </div>
 
         <!-- Button -->
-        <div class="px-4 pb-4">
+        <div class="relative z-[2] px-4 pb-4">
           <button
             type="button"
             (click)="showDiv(arma.uuid)"

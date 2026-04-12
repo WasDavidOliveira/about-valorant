@@ -1,15 +1,38 @@
-<section>
-    <div class="container">
-        <div class="title">Cards</div>
-        <div class="cards">
-            <div class="card" *ngFor="let card of cards" >
-                
+<section class="w-full min-h-screen overflow-hidden">
+  <div class="mt-[112px] mb-16 ml-[300px] md:ml-8 w-[calc(100%-300px)] md:w-[calc(100%-2rem)] flex flex-col gap-5">
 
-                    <div class="card-name">{{card.displayName}}</div>
-                    <div class="card-image"><img src="{{card.largeArt}}" alt=""></div>
+    <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down px-2">
+      Cards
+    </h1>
 
+    <div
+      class="grid grid-cols-6 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-5 px-2"
+      [@listAnimation]="cards.length"
+    >
+      <div
+        *ngFor="let card of cards"
+        class="player-card group relative w-full h-[320px] md:h-[420px] rounded-lg overflow-hidden cursor-default
+               border border-crimson-dark/30 shadow-[0_0_10px_rgba(0,0,0,0.5)]
+               transition-all duration-300
+               hover:-translate-y-1 hover:shadow-[0_12px_40px_-8px_rgba(199,0,57,0.5)]"
+      >
+        <!-- Card image -->
+        <img
+          src="{{ card.largeArt }}"
+          alt="{{ card.displayName }}"
+          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+        />
 
-            </div>
-        </div>
+        <!-- Gradient overlay -->
+        <div class="card-gradient-overlay"></div>
+
+        <!-- Card name -->
+        <span class="absolute bottom-3 left-3 right-3 font-display font-bold text-sm text-cream z-10 tracking-tight">
+          {{ card.displayName }}
+        </span>
+      </div>
     </div>
+
+  </div>
 </section>

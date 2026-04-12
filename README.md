@@ -1,42 +1,68 @@
 # About Valorant
 
-![printapp](https://i.imgur.com/ARTEtTA.png)
+SPA em **Angular** que consome a API comunitária **[valorant-api.com](https://valorant-api.com/)** para exibir conteúdo estático do jogo Valorant: agentes (com ficha individual), mapas, armas e skins, patentes competitivas, temporadas e player cards. A interface usa **Tailwind CSS**, animações de entrada e um carregamento inicial enquanto o app sobe.
 
-O **About Valorant** é um projeto em Angular que fornece informações detalhadas sobre o popular jogo Valorant. Ele se conecta a uma API externa para buscar dados atualizados sobre agentes, mapas e estatísticas do jogo. Este projeto também faz uso de recursos avançados do Angularr.
+> Este projeto é independente e **não é afiliado à Riot Games, Inc.** Valorant é marca registrada da Riot Games.
 
-## Principais Recursos
+## Funcionalidades
 
-- **Exploração de Agentes**: Saiba mais sobre os agentes disponíveis no jogo, incluindo suas habilidades e histórias de fundo.
+| Área | Descrição |
+|------|-----------|
+| **Agentes** | Lista por função (Duelist, Controller, etc.) com cards e página de detalhe por ID. |
+| **Mapas** | Galeria com arte e informações dos mapas. |
+| **Armas** | Catálogo por categoria, busca de skins no painel expandido e preview em overlay. |
+| **Patentes** | Tiers competitivos agrupados por temporada. |
+| **Temporadas** | Linha do tempo das temporadas retornadas pela API. |
+| **Player cards** | Coleção de cartas com filtro. |
 
-- **Detalhes dos Mapas**: Explore os mapas do Valorant, obtenha informações sobre pontos de interesse e estratégias de jogo.
+Os dados vêm de endpoints REST públicos; **não há** estatísticas de partidas, MMR em tempo real nem API oficial da Riot no cliente.
 
-- **Estatísticas em Tempo Real**: Acompanhe as estatísticas em tempo real, incluindo taxas de vitória, escolhas de agentes populares e muito mais.
+## Stack
 
-- **Interface Amigável**: Uma interface intuitiva e fácil de usar para navegar pelas informações.
+- Angular **16**
+- TypeScript **5.1**
+- Tailwind CSS **3** + PostCSS + Autoprefixer
+- RxJS, `@angular/animations`
+- `HttpClient` com interceptor de **cache em memória** (GET para `valorant-api.com`, TTL configurável)
 
-- **API Externa Confiável**: Dados atualizados diretamente da API oficial do Valorant.
+## Requisitos
 
-- **Angular Router**: Navegue pelas informações do jogo de forma dinâmica e intuitiva com o Angular Router.
+- **Node.js** `24.x` (conforme `engines` no `package.json`)
 
-## Tecnologias Utilizadas
+## Como rodar
 
-- **Angular**: A estrutura Angular foi usada para criar o front-end do projeto, incluindo o roteamento dinâmico com o Angular Router.
+```bash
+git clone https://github.com/DaviProgramming/AboutValorant.git
+cd AboutValorant
+npm install
+npm start
+```
 
-- **API do Valorant**: Os dados do jogo são obtidos por meio da API oficial do Valorant.
+Abra **http://localhost:4200/** no navegador.
 
-## Uso
+### Scripts úteis
 
-1. Clone o repositório:
-   
-  ``` git clone https://github.com/DaviProgramming/AboutValorant)  ```
+| Comando | Descrição |
+|---------|-----------|
+| `npm start` | Servidor de desenvolvimento (`ng serve`). |
+| `npm run build` | Build de produção (`ng build`). |
+| `npm run watch` | Build em modo watch (desenvolvimento). |
+| `npm test` | Testes unitários (Karma + Jasmine). |
 
-2. Instale as dependências:
+## Estrutura (resumo)
 
-  ``` npm install  ```
+```
+src/app/
+  components/     # UI reutilizável (navbar, main, maps, weapons, …)
+  pages/          # Rotas (home, mapas, armas, elos, …)
+  services/       # Chamadas HTTP à valorant-api.com
+  interceptors/   # Cache de respostas GET
+  directives/     # Ex.: scroll reveal
+  models/         # DTOs e view models tipados
+```
 
-3. Inicie o servidor de desenvolvimento:
+Rotas principais estão em `app-routing.module.ts`.
 
-  ``` ng serve  ```
+## Licença e dados
 
-4. Acesse a aplicação no seu navegador em `http://localhost:4200/`
-
+O código deste repositório segue a licença indicada no repositório (se houver arquivo `LICENSE`). Assets e textos retornados pela API pertencem aos respectivos detentores; use apenas de acordo com os termos da API e da Riot para conteúdo derivado do jogo.

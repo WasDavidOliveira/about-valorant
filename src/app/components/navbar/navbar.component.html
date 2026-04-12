@@ -1,20 +1,37 @@
 <nav
-  class="fixed top-0 left-0 w-full h-[86px] bg-crimson z-50 flex items-center animate-slide-down transition-shadow duration-300"
-  [class.shadow-[0_4px_40px_-10px_rgba(0,0,0,0.8)]]="isScrolled"
-  [class.shadow-[0_0_20px_-10px_black]]="!isScrolled"
+  class="fixed top-0 left-0 w-full h-[77px] z-50 flex items-center animate-slide-down transition-all duration-300
+         border-b border-crimson/25"
+  [class.shadow-[0_4px_24px_-4px_rgba(0,0,0,0.8)]]="isScrolled"
+  style="background: #120006;"
 >
-  <div class="w-full px-8 flex flex-row justify-between items-center">
-    <div class="flex flex-row items-center gap-5">
+  <div class="w-full h-full flex items-center">
+
+    <!-- Sidebar-width brand block (desktop) -->
+    <div class="hidden md:flex items-center w-[230px] flex-shrink-0 px-5 h-full border-r border-crimson/20">
+      <div class="flex items-center gap-2.5">
+        <div class="w-[3px] h-5 bg-crimson rounded-full"></div>
+        <span class="font-display font-black text-sm tracking-tight text-cream select-none uppercase">
+          About <span class="font-light text-cream/40">Valorant</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Mobile: hamburger + brand -->
+    <div class="md:hidden flex items-center gap-3 px-5">
       <button
-        class="md:hidden flex items-center justify-center w-8 h-8 rounded transition-transform duration-200 hover:scale-110 active:scale-95 focus:outline-none"
+        class="flex items-center justify-center w-9 h-9 rounded-md transition-all duration-200 hover:bg-white/8 active:scale-95 focus:outline-none"
         (click)="alterarValor()"
         aria-label="Toggle menu"
       >
-        <i class="fa-solid fa-bars text-cream text-xl"></i>
+        <i class="fa-solid fa-bars text-cream/80 text-base"></i>
       </button>
-      <span class="font-display font-bold text-xl tracking-tighter text-cream cursor-default select-none">
-        About Valorant
-      </span>
+      <div class="flex items-center gap-2">
+        <div class="w-[3px] h-5 bg-crimson rounded-full"></div>
+        <span class="font-display font-black text-sm uppercase tracking-tight text-cream select-none">
+          About <span class="font-light text-cream/40">Valorant</span>
+        </span>
+      </div>
     </div>
+
   </div>
 </nav>

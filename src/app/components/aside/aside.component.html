@@ -1,80 +1,68 @@
 <!-- Desktop sidebar: always visible md+ -->
 <aside
-  class="hidden md:flex flex-col h-screen min-w-[230px] w-[12vw] fixed top-[77px] left-0 z-40 shadow-[0_0_30px_-10px_black] animate-slide-down"
-  style="background-image: linear-gradient(to bottom, #c70039, #ac0032, #92002b, #790024, #60001c);"
+  class="hidden md:flex flex-col h-screen w-[230px] fixed top-[77px] left-0 z-40 animate-slide-down border-r border-crimson/20"
+  style="background: #120006;"
 >
-  <nav class="p-6 flex flex-col gap-7 font-semibold">
+  <div class="px-5 pt-5 pb-3">
+    <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/25 select-none">
+      Navegação
+    </span>
+  </div>
+
+  <nav class="px-3 flex flex-col gap-1">
     <a
       href="/"
-      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
-      [class.bg-dark-red]="page === 'home' || page === 'agente'"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'home' || page === 'agente'}"
     >
+      <span *ngIf="page === 'home' || page === 'agente'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-users w-4 text-center"></i>
       <span class="whitespace-nowrap">Agentes</span>
-      <span
-        *ngIf="page !== 'home' && page !== 'agente'"
-        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
-      ></span>
     </a>
     <a
       href="/mapas"
-      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
-      [class.bg-dark-red]="page === 'mapas'"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'mapas'}"
     >
+      <span *ngIf="page === 'mapas'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-map w-4 text-center"></i>
       <span class="whitespace-nowrap">Mapas</span>
-      <span
-        *ngIf="page !== 'mapas'"
-        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
-      ></span>
     </a>
     <a
       href="/armas"
-      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
-      [class.bg-dark-red]="page === 'armas'"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'armas'}"
     >
+      <span *ngIf="page === 'armas'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-gun w-4 text-center"></i>
       <span class="whitespace-nowrap">Armas</span>
-      <span
-        *ngIf="page !== 'armas'"
-        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
-      ></span>
     </a>
     <a
       href="/elos"
-      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
-      [class.bg-dark-red]="page === 'elos'"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'elos'}"
     >
+      <span *ngIf="page === 'elos'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-medal w-4 text-center"></i>
       <span class="whitespace-nowrap">Elos</span>
-      <span
-        *ngIf="page !== 'elos'"
-        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
-      ></span>
     </a>
     <a
       href="/temporadas"
-      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
-      [class.bg-dark-red]="page === 'temporadas'"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'temporadas'}"
     >
+      <span *ngIf="page === 'temporadas'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-calendar w-4 text-center"></i>
       <span class="whitespace-nowrap">Temporadas</span>
-      <span
-        *ngIf="page !== 'temporadas'"
-        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
-      ></span>
     </a>
     <a
       href="/cards"
-      class="flex flex-row items-center gap-4 text-cream text-sm font-bold relative group px-3 py-2 rounded transition-colors duration-200"
-      [class.bg-dark-red]="page === 'cards'"
+      class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'cards'}"
     >
+      <span *ngIf="page === 'cards'" class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 bg-crimson rounded-r"></span>
       <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
       <span class="whitespace-nowrap">Cards de jogadores</span>
-      <span
-        *ngIf="page !== 'cards'"
-        class="absolute bottom-0 left-3 w-0 h-[2px] bg-cream rounded group-hover:w-[calc(100%-1.5rem)] transition-all duration-300"
-      ></span>
     </a>
   </nav>
 </aside>
@@ -83,31 +71,42 @@
 <aside
   *ngIf="active"
   [@slideIn]="slideState"
-  class="md:hidden fixed top-[77px] left-0 w-full h-screen z-40 shadow-[0_0_30px_-10px_black]"
-  style="background-image: linear-gradient(to bottom, #c70039, #ac0032, #92002b, #790024, #60001c);"
+  class="md:hidden fixed top-[77px] left-0 w-full h-screen z-40 border-t border-crimson/20"
+  style="background: #120006;"
 >
-  <nav class="p-6 flex flex-col gap-7 font-semibold">
-    <a href="/" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'home' || page === 'agente'">
+  <div class="px-5 pt-5 pb-3">
+    <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/25 select-none">
+      Navegação
+    </span>
+  </div>
+  <nav class="px-3 flex flex-col gap-1">
+    <a href="/" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'home' || page === 'agente'}">
       <i class="fa-solid fa-users w-4 text-center"></i>
       <span>Agentes</span>
     </a>
-    <a href="/mapas" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'mapas'">
+    <a href="/mapas" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'mapas'}">
       <i class="fa-solid fa-map w-4 text-center"></i>
       <span>Mapas</span>
     </a>
-    <a href="/armas" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'armas'">
+    <a href="/armas" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'armas'}">
       <i class="fa-solid fa-gun w-4 text-center"></i>
       <span>Armas</span>
     </a>
-    <a href="/elos" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'elos'">
+    <a href="/elos" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'elos'}">
       <i class="fa-solid fa-medal w-4 text-center"></i>
       <span>Elos</span>
     </a>
-    <a href="/temporadas" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'temporadas'">
+    <a href="/temporadas" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'temporadas'}">
       <i class="fa-solid fa-calendar w-4 text-center"></i>
       <span>Temporadas</span>
     </a>
-    <a href="/cards" class="flex flex-row items-center gap-4 text-cream text-sm font-bold px-3 py-2 rounded" [class.bg-dark-red]="page === 'cards'">
+    <a href="/cards" class="flex flex-row items-center gap-3 text-cream/70 text-sm font-semibold relative px-3 py-2.5 rounded-md transition-all duration-200 hover:text-cream hover:bg-white/5"
+      [ngClass]="{'!text-cream bg-crimson/20 border border-crimson/30': page === 'cards'}">
       <i class="fa-solid fa-id-card-clip w-4 text-center"></i>
       <span>Cards de jogadores</span>
     </a>

@@ -1,103 +1,129 @@
-<section class="w-full min-h-screen overflow-hidden" *ngIf="agente && agente.displayName">
-  <div class="mt-[112px] mb-16 ml-[300px] md:ml-8 w-[calc(100%-300px)] md:w-[calc(100%-2rem)] flex flex-col gap-6">
+<section class="w-full min-h-screen" *ngIf="agente && agente.displayName">
+  <div class="ml-8 md:ml-[230px] w-full md:w-[calc(100%-230px)] flex flex-col">
 
-    <!-- Title block -->
-    <div class="flex flex-col gap-2 px-2 animate-slide-down">
-      <span class="text-sm font-display font-bold text-cream/60 uppercase tracking-widest">
-        Informações do agente
-      </span>
-      <h1 class="text-4xl font-display font-black text-cream tracking-tighter uppercase">
-        {{ agente.displayName }}
-      </h1>
-    </div>
+    <!-- ═══ HERO ═══ -->
+    <div class="relative h-[500px] overflow-hidden">
+      <!-- Background blur image -->
+      <img
+        *ngIf="agente.background"
+        [src]="agente.background"
+        alt=""
+        class="absolute inset-0 w-full h-full object-cover opacity-20 scale-110 blur-sm pointer-events-none"
+        aria-hidden="true"
+      />
 
-    <div class="flex flex-col gap-10">
+      <!-- Gradient overlays -->
+      <div class="absolute inset-0 bg-gradient-to-r from-[#1a0008] via-[#1a0008]/90 to-transparent"></div>
+      <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#2c010d] to-transparent"></div>
 
-      <!-- Portrait + Description row -->
-      <div class="flex flex-row md:flex-col gap-8 items-start px-2">
-        <!-- Portrait -->
-        <div
-          appScrollReveal
-          revealDirection="left"
-          [revealDelay]="0"
-          class="flex-shrink-0"
-        >
+      <!-- Full portrait — anchored to bottom right -->
+      <img
+        [src]="agente.fullPortrait"
+        [alt]="agente.displayName"
+        class="absolute right-0 bottom-0 h-[490px] object-contain object-bottom drop-shadow-[0_0_40px_rgba(199,0,57,0.5)] pointer-events-none select-none"
+      />
+
+      <!-- Hero text — aligned to bottom left -->
+      <div class="absolute bottom-0 left-0 p-8 pb-10 flex flex-col gap-3 z-10 max-w-[60%]">
+        <!-- Role pill -->
+        <div *ngIf="agente.role" class="flex items-center gap-2 w-fit">
           <img
-            src="{{ agente.fullPortrait }}"
-            alt="{{ agente.displayName }}"
-            class="h-[500px] md:h-[300px] object-contain drop-shadow-[0_0_30px_rgba(199,0,57,0.4)]"
+            [src]="agente.role.displayIcon"
+            [alt]="agente.role.displayName"
+            class="w-4 h-4 object-contain opacity-80"
           />
+          <span class="text-xs font-display font-bold uppercase tracking-[0.2em] text-cream/60">
+            {{ agente.role.displayName }}
+          </span>
         </div>
 
-        <!-- Description + Role -->
-        <div class="flex flex-col gap-6 pt-4">
-          <p
-            appScrollReveal
-            [revealDelay]="150"
-            class="text-lg font-body text-cream/90 leading-relaxed max-w-[65ch]"
-          >
+        <h1 class="text-6xl font-display font-black text-cream uppercase tracking-tighter leading-none animate-slide-down">
+          {{ agente.displayName }}
+        </h1>
+
+        <p class="text-sm font-body text-cream/70 leading-relaxed max-w-[55ch] line-clamp-2">
+          {{ agente.description }}
+        </p>
+      </div>
+    </div>
+
+    <!-- ═══ BODY ═══ -->
+    <div class="flex flex-col gap-10 px-8 py-10 mb-16">
+
+      <!-- Description + Role -->
+      <div
+        class="grid grid-cols-2 lg:grid-cols-1 gap-8"
+        appScrollReveal
+        [revealDelay]="0"
+      >
+        <!-- Description -->
+        <div class="flex flex-col gap-3">
+          <h2 class="text-xs font-display font-bold uppercase tracking-[0.2em] text-cream/40">
+            Sobre
+          </h2>
+          <p class="text-base font-body text-cream/85 leading-relaxed">
             {{ agente.description }}
           </p>
+        </div>
 
-          <!-- Role block -->
+        <!-- Role card -->
+        <div *ngIf="agente.role" class="flex flex-col gap-3">
+          <h2 class="text-xs font-display font-bold uppercase tracking-[0.2em] text-cream/40">
+            Função
+          </h2>
           <div
-            *ngIf="agente.role"
-            appScrollReveal
-            [revealDelay]="250"
-            class="flex flex-col gap-3"
+            class="bg-crimson/60 backdrop-blur-sm border border-crimson-dark/40 rounded-xl p-5 flex flex-col gap-3
+                   transition-all duration-300 hover:bg-crimson/80 hover:shadow-[0_8px_30px_-8px_rgba(199,0,57,0.5)]"
           >
-            <h2 class="text-lg font-display font-black text-cream uppercase tracking-tight">
-              Role
-            </h2>
-            <div class="bg-crimson rounded-lg p-4 flex flex-col gap-3 cursor-default
-                        transition-all duration-300 hover:shadow-[0_4px_20px_-5px_rgba(199,0,57,0.5)]">
-              <div class="flex flex-row items-center gap-3">
-                <img
-                  src="{{ agente.role.displayIcon }}"
-                  alt="{{ agente.role.displayName }}"
-                  class="w-7 h-7 object-contain"
-                />
-                <span class="font-display font-bold text-base text-cream uppercase tracking-wide">
-                  {{ agente.role.displayName }}
-                </span>
-              </div>
-              <p class="text-sm font-body text-cream/80 leading-relaxed">
-                {{ agente.role.description }}
-              </p>
+            <div class="flex items-center gap-3">
+              <img
+                [src]="agente.role.displayIcon"
+                [alt]="agente.role.displayName"
+                class="w-8 h-8 object-contain"
+              />
+              <span class="font-display font-black text-base text-cream uppercase tracking-wide">
+                {{ agente.role.displayName }}
+              </span>
             </div>
+            <p class="text-sm font-body text-cream/75 leading-relaxed">
+              {{ agente.role.description }}
+            </p>
           </div>
         </div>
       </div>
 
+      <!-- Divider -->
+      <div class="h-px bg-white/5"></div>
+
       <!-- Abilities -->
-      <div
-        class="flex flex-col gap-4 px-2"
-        appScrollReveal
-        [revealDelay]="100"
-      >
-        <h2 class="text-lg font-display font-black text-cream uppercase tracking-tight">
-          Abilities
+      <div class="flex flex-col gap-5" appScrollReveal [revealDelay]="80">
+        <h2 class="text-xs font-display font-bold uppercase tracking-[0.2em] text-cream/40">
+          Habilidades
         </h2>
         <div class="grid grid-cols-4 lg:grid-cols-2 md:grid-cols-1 gap-4">
           <div
             *ngFor="let ability of agente.abilities; let i = index"
             appScrollReveal
-            [revealDelay]="100 + i * 80"
-            class="group bg-crimson rounded-lg p-4 flex flex-col gap-3 cursor-default
-                   border border-crimson-dark/30
+            [revealDelay]="80 + i * 70"
+            class="group bg-crimson/60 backdrop-blur-sm border border-crimson-dark/30 rounded-xl p-5 flex flex-col gap-3 cursor-default
                    transition-all duration-300
-                   hover:-translate-y-0.5 hover:shadow-[0_8px_30px_-8px_rgba(199,0,57,0.6)]"
+                   hover:-translate-y-1 hover:bg-crimson hover:shadow-[0_12px_40px_-10px_rgba(199,0,57,0.5)]"
           >
-            <img
-              *ngIf="ability.displayIcon"
-              src="{{ ability.displayIcon }}"
-              alt="{{ ability.displayName }}"
-              class="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-110"
-            />
+            <div class="flex items-center justify-between">
+              <img
+                *ngIf="ability.displayIcon"
+                [src]="ability.displayIcon"
+                [alt]="ability.displayName"
+                class="w-10 h-10 object-contain transition-transform duration-300 group-hover:scale-110"
+              />
+              <span class="text-[10px] font-display font-bold uppercase tracking-widest text-cream/70 bg-white/15 border border-white/20 px-2 py-1 rounded">
+                {{ ability.slot }}
+              </span>
+            </div>
             <h3 class="font-display font-bold text-sm text-cream uppercase tracking-wide">
               {{ ability.displayName }}
             </h3>
-            <p class="text-xs font-body text-cream/75 leading-relaxed">
+            <p class="text-xs font-body text-cream/70 leading-relaxed">
               {{ ability.description }}
             </p>
           </div>

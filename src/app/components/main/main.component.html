@@ -1,45 +1,67 @@
-<section class="w-full min-h-screen overflow-hidden">
-  <div class="mt-[112px] mb-16 ml-[300px] md:ml-8 w-[calc(100%-300px)] md:w-[calc(100%-2rem)] flex flex-col gap-5">
+<section class="w-full min-h-screen overflow-hidden" style="background: #2e000d;">
+  <div class="mt-[112px] mb-16 ml-8 md:ml-[230px] w-full md:w-[calc(100%-230px)] flex flex-col gap-6">
 
     <h1
-      class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down flex items-center gap-3 px-2"
-      appScrollReveal
-      [revealDelay]="0"
+      class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down px-4"
     >
       Agentes
     </h1>
 
     <div
-      class="grid grid-cols-6 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-6 w-[97%] md:w-full px-2"
+      class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4"
       [@listAnimation]="agentesData.length"
     >
       <a
         *ngFor="let agente of agentesData"
         href="/agentes/{{ agente.uuid }}"
         target="_blank"
-        class="group relative bg-crimson rounded-lg p-5 flex flex-col items-center gap-2 overflow-hidden cursor-pointer
+        class="group relative rounded-xl overflow-hidden cursor-pointer h-[280px]
                border border-crimson-dark/40
-               transition-transform duration-300
-               hover:-translate-y-1 hover:shadow-[0_8px_30px_-8px_rgba(199,0,57,0.7)]
-               active:scale-[0.98]"
+               transition-all duration-400
+               hover:-translate-y-1.5 hover:shadow-[0_20px_50px_-10px_rgba(199,0,57,0.65)] hover:border-crimson/50"
+        style="background: linear-gradient(160deg, #92002b 0%, #60001c 100%);"
       >
-        <!-- Shimmer overlay on hover -->
-        <div
-          class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-          style="background: linear-gradient(105deg, transparent 40%, rgba(255,245,224,0.08) 50%, transparent 60%);"
-        ></div>
+        <!-- Subtle top vignette -->
+        <div class="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/40 to-transparent z-10 pointer-events-none"></div>
 
-        <span class="font-display font-bold text-sm text-cream uppercase tracking-wide z-10 text-center">
-          {{ agente.displayName }}
-        </span>
-        <div class="w-full flex justify-center z-10">
-          <img
-            src="{{ agente.fullPortrait }}"
-            alt="{{ agente.displayName }}"
-            class="w-[180px] transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-          />
+        <!-- Agent portrait — fills from bottom -->
+        <img
+          src="{{ agente.fullPortrait }}"
+          alt="{{ agente.displayName }}"
+          class="absolute bottom-0 left-1/2 -translate-x-1/2 h-[92%] object-contain object-bottom
+                 transition-transform duration-600 ease-out
+                 group-hover:scale-[1.06]"
+          loading="lazy"
+        />
+
+        <!-- Bottom gradient overlay -->
+        <div class="absolute bottom-0 left-0 right-0 h-[55%] bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
+
+        <!-- Bottom info -->
+        <div class="absolute bottom-0 left-0 right-0 p-3.5 z-10 flex flex-col gap-1">
+          <!-- Role -->
+          <div *ngIf="agente.role" class="flex items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <img
+              [src]="agente.role.displayIcon"
+              [alt]="agente.role.displayName"
+              class="w-3 h-3 object-contain opacity-60"
+            />
+            <span class="text-[9px] font-display font-bold uppercase tracking-[0.18em] text-cream/55">
+              {{ agente.role.displayName }}
+            </span>
+          </div>
+          <!-- Name -->
+          <h3 class="text-base font-display font-black text-cream uppercase tracking-tight leading-tight
+                     transition-transform duration-300 group-hover:-translate-y-0.5">
+            {{ agente.displayName }}
+          </h3>
         </div>
+
+        <!-- Shimmer on hover -->
+        <div
+          class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style="background: linear-gradient(115deg, transparent 35%, rgba(255,245,224,0.06) 50%, transparent 65%);"
+        ></div>
       </a>
     </div>
   </div>

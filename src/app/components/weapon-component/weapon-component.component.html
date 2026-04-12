@@ -1,40 +1,96 @@
-<section>
-    <div class="container">
-        <div class="title">Armas</div>
-        <div class="weapons">
-            <div class="weapon" *ngFor="let arma of armas">
-                <div class="weapon-name">{{arma.displayName}}</div>
-                <div class="weapon-image"> <img src="{{arma.displayIcon}}" alt=""></div>
-                <div class="weapon-infos">
-                    <div class="weapon-infos-category">
-                        Category: {{arma.shopData.category}}
-                    </div>
-                    <div class="weapon-infos-price">
-                        Price: {{arma.shopData.cost}}
-                    </div>
-                    <div class="see-skins">
-                        <button type="button" (click)="showDiv(arma.uuid)">See Skins</button>
-                    </div>
-                </div>
-                <div class="weapon-skins" *ngIf="divAtiva === arma.uuid" >
+<section class="w-full min-h-screen overflow-hidden">
+  <div class="mt-[112px] mb-16 ml-[300px] md:ml-8 w-[calc(100%-300px)] md:w-[calc(100%-2rem)] flex flex-col gap-5">
 
+    <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down px-2">
+      Armas
+    </h1>
 
-                    <div class="close-modal" (click)="showDiv(arma.uuid)">
-                        x <span>skins {{arma.displayName}}</span>
-                    </div>
+    <div class="grid grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-8 w-[97%] md:w-full px-2">
+      <div
+        *ngFor="let arma of armas; let i = index"
+        appScrollReveal
+        [revealDelay]="i * 60"
+        class="bg-crimson rounded-lg p-4 flex flex-col gap-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_-8px_rgba(199,0,57,0.5)]"
+      >
+        <h3 class="text-xl font-display font-bold text-cream tracking-tight">
+          {{ arma.displayName }}
+        </h3>
 
-
-                    <div class="weapon-skin" *ngFor="let skin of arma.skins" >
-                        <div class="weapon-skin-name">
-                            {{skin.displayName}}
-                        </div>
-                        <div class="weapon-skin-img">
-                            <img src="{{skin.displayIcon}}" alt="">
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+        <div class="flex justify-center">
+          <img
+            src="{{ arma.displayIcon }}"
+            alt="{{ arma.displayName }}"
+            class="h-12 object-contain transition-transform duration-300 hover:scale-110"
+            loading="lazy"
+          />
         </div>
+
+        <div class="flex flex-col gap-2 text-sm text-cream/80 font-body">
+          <span>Category: <strong class="text-cream">{{ arma.shopData.category }}</strong></span>
+          <span>Price: <strong class="text-cream font-mono">{{ arma.shopData.cost }}</strong></span>
+        </div>
+
+        <button
+          type="button"
+          (click)="showDiv(arma.uuid)"
+          class="mt-auto bg-cream text-off-black font-display font-semibold text-sm px-4 py-2 rounded
+                 transition-all duration-200
+                 hover:bg-cream/90 hover:shadow-md
+                 active:-translate-y-[1px] active:scale-[0.98]"
+        >
+          Ver Skins
+        </button>
+      </div>
     </div>
+
+  </div>
 </section>
+
+<!-- Skins Modal Overlay -->
+<ng-container *ngFor="let arma of armas">
+  <div
+    *ngIf="divAtiva === arma.uuid"
+    class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center"
+    (click)="showDiv(arma.uuid)"
+  >
+    <div
+      [@modalAnimation]
+      (click)="$event.stopPropagation()"
+      class="weapon-skins-modal relative bg-crimson/95 backdrop-blur-sm w-[55vw] lg:w-[80vw] md:w-[90vw] max-h-[75vh] rounded-xl
+             overflow-y-auto p-8 pt-20 shadow-[0_20px_60px_-10px_rgba(0,0,0,0.8)]"
+    >
+      <!-- Modal close header -->
+      <div class="absolute top-4 left-6 flex flex-row items-center gap-6">
+        <button
+          (click)="showDiv(arma.uuid)"
+          class="text-3xl font-black text-cream cursor-pointer hover:scale-110 active:scale-95 transition-transform duration-150 leading-none focus:outline-none"
+          aria-label="Fechar"
+        >
+          ×
+        </button>
+        <span class="text-base font-display font-bold text-cream uppercase tracking-widest border-b border-cream/40 pb-0.5">
+          Skins {{ arma.displayName }}
+        </span>
+      </div>
+
+      <!-- Skins grid -->
+      <div class="grid grid-cols-3 md:grid-cols-1 gap-6">
+        <div
+          *ngFor="let skin of arma.skins"
+          class="flex flex-col gap-3 group"
+        >
+          <span class="font-display font-semibold text-sm text-cream/90 tracking-tight">
+            {{ skin.displayName }}
+          </span>
+          <img
+            *ngIf="skin.displayIcon"
+            src="{{ skin.displayIcon }}"
+            alt="{{ skin.displayName }}"
+            class="w-full max-h-[100px] object-contain transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

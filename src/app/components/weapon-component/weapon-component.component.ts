@@ -1,63 +1,60 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+} from '@angular/animations';
 import { WeaponServiceService } from 'src/app/services/weapon-service.service';
 import { CustomActionsService } from 'src/app/scripts/custom-actions.service';
-
 
 @Component({
   selector: 'app-weapon-component',
   templateUrl: './weapon-component.component.html',
-  styleUrls: ['./weapon-component.component.css']
+  styleUrls: ['./weapon-component.component.css'],
+  animations: [
+    trigger('modalAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'scale(0.95) translateY(10px)' }),
+        animate(
+          '250ms cubic-bezier(0.16, 1, 0.3, 1)',
+          style({ opacity: 1, transform: 'scale(1) translateY(0)' })
+        ),
+      ]),
+      transition(':leave', [
+        animate(
+          '150ms ease-in',
+          style({ opacity: 0, transform: 'scale(0.95) translateY(10px)' })
+        ),
+      ]),
+    ]),
+  ],
 })
-export class WeaponComponentComponent {
+export class WeaponComponentComponent implements OnInit {
 
-  
+  armas: any[] = [];
+  divAtiva: string = '';
 
-  constructor(private weaponService: WeaponServiceService, private customActionsService: CustomActionsService){
+  constructor(
+    private weaponService: WeaponServiceService,
+    private customActionsService: CustomActionsService
+  ) {}
 
+  ngOnInit(): void {
+    this.getArmas();
   }
 
-  armas: any = [];
-
-
-  divAtiva: string = ''; 
+  getArmas(): void {
+    this.weaponService.getArmas().subscribe((response: any) => {
+      this.armas = response.data.filter((a: any) => a.shopData);
+    });
+  }
 
   showDiv(uuid: string): void {
-    if (this.divAtiva === uuid) {
-      this.divAtiva = ''; 
-    } else {
-      this.divAtiva = uuid; 
-    }
-    
+    this.divAtiva = this.divAtiva === uuid ? '' : uuid;
   }
 
-
-  getArmas(){
-
-    this.weaponService.getArmas().subscribe((response:any) => {
-
-      this.armas = response.data;
-
-
-    })
-
-  }
-
-  executeCustomAction(event:MouseEvent): void {
-    // Chame o método do serviço
+  executeCustomAction(event: MouseEvent): void {
     this.customActionsService.clickButton(event.currentTarget);
-    
   }
-
-  ngOnInit() {
-
-    this.getArmas();
-
-
-  }
-
-  
-
-
- 
-
 }

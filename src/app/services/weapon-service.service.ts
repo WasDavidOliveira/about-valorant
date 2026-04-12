@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
+import { ValorantWeaponsApiDto } from 'src/app/models/valorant-weapon.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WeaponServiceService {
 
-  constructor(private http: HttpClient) { }
+  constructor(protected http: HttpClient) { }
 
-  getArmas() {
-    return this.http.get('https://valorant-api.com/v1/weapons');
+  getArmas(): Observable<ValorantWeaponsApiDto> {
+    return this.http.get<ValorantWeaponsApiDto>('https://valorant-api.com/v1/weapons');
   }
 }

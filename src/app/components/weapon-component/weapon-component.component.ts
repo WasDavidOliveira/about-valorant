@@ -7,6 +7,11 @@ import {
 } from '@angular/animations';
 import { WeaponServiceService } from 'src/app/services/weapon-service.service';
 import { CustomActionsService } from 'src/app/scripts/custom-actions.service';
+import {
+  ValorantWeaponShopDto,
+  ValorantWeaponsApiDto,
+  ValorantWeaponSkinDto,
+} from 'src/app/models/valorant-weapon.model';
 
 @Component({
   selector: 'app-weapon-component',
@@ -32,12 +37,13 @@ import { CustomActionsService } from 'src/app/scripts/custom-actions.service';
 })
 export class WeaponComponentComponent implements OnInit {
 
-  armas: any[] = [];
-  divAtiva: string = '';
+  protected armas: ValorantWeaponShopDto[] = [];
+  protected divAtiva = '';
+  protected skinSearchQuery = '';
 
   constructor(
-    private weaponService: WeaponServiceService,
-    private customActionsService: CustomActionsService
+    protected weaponService: WeaponServiceService,
+    protected customActionsService: CustomActionsService
   ) {}
 
   ngOnInit(): void {
@@ -45,13 +51,44 @@ export class WeaponComponentComponent implements OnInit {
   }
 
   getArmas(): void {
-    this.weaponService.getArmas().subscribe((response: any) => {
-      this.armas = response.data.filter((a: any) => a.shopData);
+    this.weaponService.getArmas().subscribe((response: ValorantWeaponsApiDto) => {
+      this.armas = response.data.filter((a) => a.shopData);
     });
   }
 
   showDiv(uuid: string): void {
-    this.divAtiva = this.divAtiva === uuid ? '' : uuid;
+    const next = this.divAtiva === uuid ? '' : uuid;
+    if (next.length > 0) {
+      this.skinSearchQuery = '';
+    }
+    this.divAtiva = next;
+  }
+
+  onSkinSearchInput(event: Event): void {
+    const el = event.target as HTMLInputElement;
+    this.skinSearchQuery = el.value;
+  }
+
+  clearSkinSearch(): void {
+    this.skinSearchQuery = '';
+  }
+
+  protected filteredSkins(arma: ValorantWeaponShopDto): ValorantWeaponSkinDto[] {
+    const q = this.skinSearchQuery.trim().toLowerCase();
+    if (q.length === 0) {
+      return arma.skins;
+    }
+    return arma.skins.filter((s) => s.displayName.toLowerCase().includes(q));
+  }
+
+  protected skinDisplayLabel(skin: ValorantWeaponSkinDto, weaponName: string): string {
+    const escaped = weaponName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(`\\s+${escaped}\\s*$`, 'i');
+    const trimmed = skin.displayName.replace(re, '').trim();
+    if (trimmed.length > 0) {
+      return trimmed;
+    }
+    return skin.displayName;
   }
 
   executeCustomAction(event: MouseEvent): void {

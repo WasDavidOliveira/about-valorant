@@ -70,67 +70,119 @@
   </div>
 </section>
 
-<!-- Skins Modal -->
 <ng-container *ngFor="let arma of armas">
   <div
     *ngIf="divAtiva === arma.uuid"
-    class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-md"
     (click)="showDiv(arma.uuid)"
+    role="presentation"
   >
     <div
       [@modalAnimation]
       (click)="$event.stopPropagation()"
-      class="relative w-full max-w-4xl max-h-[85vh] rounded-2xl overflow-hidden flex flex-col
-             shadow-[0_24px_80px_-10px_rgba(0,0,0,0.9)]"
-      style="background: linear-gradient(135deg, #a8002f 0%, #7a001f 100%);"
+      class="relative flex max-h-[88vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl border border-crimson/25
+             shadow-[0_32px_90px_-20px_rgba(0,0,0,0.95)]"
+      style="background: #120006;"
+      role="dialog"
+      [attr.aria-label]="'Skins for ' + arma.displayName"
     >
-      <!-- Modal header -->
-      <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 flex-shrink-0">
-        <div class="flex items-center gap-3">
+      <div class="flex shrink-0 items-start gap-3 border-b border-crimson/20 px-5 py-4 sm:px-6 sm:py-5">
+        <span class="mt-1 h-12 w-1 shrink-0 rounded-full bg-crimson sm:h-14" aria-hidden="true"></span>
+        <div
+          class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-crimson-dark/40 sm:h-14 sm:w-14"
+          style="background: linear-gradient(160deg, #92002b 0%, #60001c 100%);"
+        >
           <img
             [src]="arma.displayIcon"
             [alt]="arma.displayName"
-            class="h-7 object-contain opacity-80"
+            class="h-7 w-7 object-contain opacity-95 sm:h-8 sm:w-8"
           />
-          <div class="flex flex-col">
-            <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/40">Available skins</span>
-            <h2 class="text-lg font-display font-black text-cream uppercase tracking-tight leading-tight">
-              {{ arma.displayName }}
-            </h2>
-          </div>
+        </div>
+        <div class="flex min-w-0 flex-1 flex-col gap-0.5 pt-0.5 text-left">
+          <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/40">Available skins</span>
+          <h2 class="m-0 font-display text-xl font-black uppercase tracking-tight text-cream sm:text-2xl">
+            {{ arma.displayName }}
+          </h2>
+          <span class="text-[10px] font-display font-bold uppercase tracking-[0.2em] text-cream/35">
+            {{ arma.skins.length }} total
+          </span>
         </div>
         <button
+          type="button"
           (click)="showDiv(arma.uuid)"
-          class="w-8 h-8 flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20
-                 text-cream text-xl leading-none transition-all duration-150 active:scale-95 focus:outline-none"
+          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg
+                 text-cream/80 transition-all duration-200 hover:border-crimson/40 hover:bg-crimson/25 hover:text-cream
+                 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-crimson/60"
           aria-label="Close"
         >
-          ×
+          <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
         </button>
       </div>
 
-      <!-- Skins grid -->
-      <div class="overflow-y-auto p-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          <div
-            *ngFor="let skin of arma.skins"
-            class="group bg-black/20 border border-white/8 rounded-xl p-4 flex flex-col gap-3
-                   transition-all duration-300 hover:bg-black/30 hover:border-white/15"
+      <div class="shrink-0 border-b border-white/5 px-5 py-4 sm:px-6">
+        <label class="sr-only" [attr.for]="'skin-search-' + arma.uuid">Search skins by name</label>
+        <div class="relative w-full max-w-xl">
+          <i
+            class="fa-solid fa-magnifying-glass pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-cream/35"
+            aria-hidden="true"
+          ></i>
+          <input
+            [id]="'skin-search-' + arma.uuid"
+            type="search"
+            [value]="skinSearchQuery"
+            (input)="onSkinSearchInput($event)"
+            placeholder="Search skins…"
+            autocomplete="off"
+            spellcheck="false"
+            class="w-full rounded-xl border border-white/10 bg-black/35 py-3.5 pl-11 pr-12 font-body text-sm text-cream
+                   shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] placeholder:text-cream/30
+                   transition-colors duration-200
+                   focus:border-crimson/45 focus:outline-none focus:ring-1 focus:ring-crimson/25"
+          />
+          <button
+            *ngIf="skinSearchQuery.length > 0"
+            type="button"
+            (click)="clearSkinSearch()"
+            class="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg text-cream/50
+                   transition-all duration-200 hover:bg-white/10 hover:text-cream active:scale-95"
+            aria-label="Clear search"
           >
-            <div class="flex items-center justify-center h-[80px]">
+            <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+          </button>
+        </div>
+        <p class="mt-2 m-0 text-left text-[10px] font-display font-bold uppercase tracking-[0.18em] text-cream/35">
+          Showing {{ filteredSkins(arma).length }} of {{ arma.skins.length }}
+        </p>
+      </div>
+
+      <div class="min-h-0 flex-1 overflow-y-auto px-5 py-5 sm:px-6 sm:py-6" style="background: #2e000d;">
+        <div *ngIf="filteredSkins(arma).length === 0" class="rounded-xl border border-white/10 bg-black/25 px-4 py-10 text-center">
+          <p class="m-0 font-body text-sm text-cream/50">No skins match your search.</p>
+        </div>
+        <div
+          *ngIf="filteredSkins(arma).length > 0"
+          class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          <div
+            *ngFor="let skin of filteredSkins(arma)"
+            class="group relative flex flex-col gap-3 overflow-hidden rounded-xl border border-crimson-dark/40 p-4 text-left
+                   transition-all duration-400
+                   hover:-translate-y-1 hover:border-crimson/50 hover:shadow-[0_20px_50px_-12px_rgba(199,0,57,0.55)]"
+            style="background: linear-gradient(160deg, #92002b 0%, #60001c 100%);"
+          >
+            <div class="pointer-events-none absolute left-0 right-0 top-0 z-[1] h-12 bg-gradient-to-b from-black/35 to-transparent"></div>
+            <div class="relative z-[2] flex h-[88px] items-center justify-center">
               <img
                 *ngIf="skin.displayIcon"
                 [src]="skin.displayIcon"
                 [alt]="skin.displayName"
-                class="max-h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                class="max-h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />
-              <div *ngIf="!skin.displayIcon" class="text-cream/20 text-xs font-body italic text-center">
-                No preview
-              </div>
+              <span *ngIf="!skin.displayIcon" class="text-center text-xs font-body italic text-cream/30">No preview</span>
             </div>
-            <span class="text-xs font-display font-semibold text-cream/85 tracking-tight leading-tight text-center">
-              {{ skin.displayName }}
+            <span class="relative z-[2] text-left text-xs font-display font-bold uppercase leading-snug tracking-tight text-cream">
+              {{ skinDisplayLabel(skin, arma.displayName) }}
             </span>
           </div>
         </div>

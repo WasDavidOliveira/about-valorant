@@ -12,9 +12,89 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Font Awesome (icons used across components) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    body.av-bootstrap-loading {
+      overflow: hidden;
+    }
+
+    #av-bootstrap-loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(155deg, #2c010d 0%, #5c001a 42%, #2c010d 100%);
+      transition: opacity 0.45s ease, visibility 0.45s ease;
+    }
+
+    #av-bootstrap-loader.av-bl-hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #av-bootstrap-loader .av-bl-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.75rem;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    #av-bootstrap-loader .av-bl-title {
+      margin: 0;
+      font-family: 'Outfit', 'Montserrat', system-ui, sans-serif;
+      font-size: clamp(1.15rem, 4vw, 1.65rem);
+      font-weight: 800;
+      letter-spacing: 0.35em;
+      color: #fff5e0;
+      text-transform: uppercase;
+    }
+
+    #av-bootstrap-loader .av-bl-sub {
+      margin: 0;
+      font-family: 'Raleway', system-ui, sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255, 245, 224, 0.45);
+    }
+
+    #av-bootstrap-loader .av-bl-spinner {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 3px solid rgba(199, 0, 57, 0.25);
+      border-top-color: #c70039;
+      animation: av-bl-spin 0.75s linear infinite;
+    }
+
+    @keyframes av-bl-spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #av-bootstrap-loader .av-bl-spinner {
+        animation: none;
+        border-top-color: rgba(199, 0, 57, 0.65);
+      }
+    }
+  </style>
 </head>
 
-<body>
+<body class="av-bootstrap-loading">
+  <div id="av-bootstrap-loader" aria-busy="true" aria-live="polite">
+    <div class="av-bl-inner">
+      <p class="av-bl-title">About Valorant</p>
+      <div class="av-bl-spinner" role="presentation"></div>
+      <p class="av-bl-sub">Carregando</p>
+    </div>
+  </div>
   <app-root></app-root>
 </body>
 

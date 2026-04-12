@@ -1,37 +1,152 @@
-<section class="w-full min-h-screen overflow-hidden">
-  <div class="mt-[112px] mb-16 ml-8 md:ml-[230px] w-full md:w-[calc(100%-230px)] flex flex-col gap-5">
+<section class="w-full min-h-screen overflow-hidden" style="background: #2e000d;">
+  <div class="mt-[112px] mb-16 ml-8 flex w-full flex-col gap-8 px-4 md:ml-[230px] md:w-[calc(100%-230px)]">
 
-    <h1 class="text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down px-2">
-      Cards
-    </h1>
+    <header class="flex w-full flex-col gap-5 text-left">
+      <div class="flex w-full flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <h1 class="m-0 text-2xl font-display font-black uppercase tracking-tighter text-cream animate-slide-down">
+          Cards
+        </h1>
+        <p *ngIf="!loading && !loadFailed" class="m-0 text-[11px] font-display font-bold uppercase tracking-[0.2em] text-cream/35 sm:text-right">
+          <ng-container *ngIf="filteredCards.length > 0; else cardsMetaEmpty">
+            {{ rangeStart }}–{{ rangeEnd }} de {{ filteredCards.length }} · {{ allCards.length }} no acervo
+          </ng-container>
+          <ng-template #cardsMetaEmpty>
+            0 filtrados · {{ allCards.length }} no acervo
+          </ng-template>
+        </p>
+      </div>
+
+      <div class="relative w-full max-w-xl" *ngIf="!loadFailed">
+        <label class="sr-only" for="cards-search">Buscar cards por nome</label>
+        <i
+          class="fa-solid fa-magnifying-glass pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-cream/35"
+          aria-hidden="true"
+        ></i>
+        <input
+          id="cards-search"
+          type="search"
+          [value]="searchQuery"
+          (input)="onSearchInput($event)"
+          placeholder="Buscar por nome..."
+          [disabled]="loading"
+          autocomplete="off"
+          spellcheck="false"
+          class="w-full rounded-xl border border-white/10 bg-black/30 py-3.5 pl-11 pr-12 font-body text-sm text-cream
+                 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] placeholder:text-cream/30
+                 transition-colors duration-200
+                 focus:border-crimson/45 focus:outline-none focus:ring-1 focus:ring-crimson/25
+                 disabled:cursor-not-allowed disabled:opacity-50"
+        />
+        <button
+          *ngIf="searchQuery.length > 0"
+          type="button"
+          (click)="clearSearch()"
+          class="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg text-cream/50
+                 transition-all duration-200 hover:bg-white/10 hover:text-cream active:scale-95"
+          aria-label="Limpar busca"
+        >
+          <i class="fa-solid fa-xmark text-sm" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
 
     <div
-      class="grid grid-cols-6 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-5 px-2"
-      [@listAnimation]="cards.length"
+      *ngIf="loading"
+      class="grid grid-cols-2 justify-items-start gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
     >
       <div
-        *ngFor="let card of cards"
-        class="player-card group relative w-full h-[320px] md:h-[420px] rounded-lg overflow-hidden cursor-default
-               border border-crimson-dark/30 shadow-[0_0_10px_rgba(0,0,0,0.5)]
-               transition-all duration-300
-               hover:-translate-y-1 hover:shadow-[0_12px_40px_-8px_rgba(199,0,57,0.5)]"
+        *ngFor="let _ of skeletonSlots"
+        class="aspect-[1/2.5] w-[min(100%,250px)] rounded-xl border border-crimson-dark/25 bg-crimson/10 animate-pulse"
+      ></div>
+    </div>
+
+    <div *ngIf="!loading && loadFailed">
+      <p class="m-0 max-w-2xl rounded-xl border border-white/10 bg-black/20 px-4 py-6 text-left text-sm font-body text-cream/55">
+        Não foi possível carregar os cards. Tente atualizar a página.
+      </p>
+    </div>
+
+    <div *ngIf="!loading && !loadFailed && allCards.length === 0">
+      <p class="m-0 text-left text-sm font-body text-cream/55">Nenhum card com arte disponível.</p>
+    </div>
+
+    <div *ngIf="!loading && !loadFailed && allCards.length > 0 && filteredCards.length === 0">
+      <p class="m-0 max-w-2xl rounded-xl border border-white/10 bg-black/20 px-4 py-8 text-left text-sm font-body text-cream/55">
+        Nenhum card corresponde à busca.
+      </p>
+    </div>
+
+    <div
+      *ngIf="!loading && !loadFailed && filteredCards.length > 0"
+      class="flex w-full flex-col items-start gap-8"
+    >
+      <div
+        class="grid w-full grid-cols-2 justify-items-start gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
       >
-        <!-- Card image -->
-        <img
-          src="{{ card.largeArt }}"
-          alt="{{ card.displayName }}"
-          class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-          loading="lazy"
-        />
-
-        <!-- Gradient overlay -->
-        <div class="card-gradient-overlay"></div>
-
-        <!-- Card name -->
-        <span class="absolute bottom-3 left-3 right-3 font-display font-bold text-sm text-cream z-10 tracking-tight">
-          {{ card.displayName }}
-        </span>
+        <article
+          *ngFor="let card of pagedCards; let i = index"
+          appScrollReveal
+          [revealDelay]="revealDelayFor(i)"
+          class="group relative aspect-[1/2.5] w-[min(100%,250px)] overflow-hidden rounded-xl border border-crimson-dark/40
+                 shadow-[0_8px_32px_-12px_rgba(0,0,0,0.85)]
+                 transition-all duration-400
+                 hover:-translate-y-1.5 hover:border-crimson/55 hover:shadow-[0_24px_56px_-14px_rgba(199,0,57,0.55)]"
+        >
+          <div
+            class="pointer-events-none absolute inset-0 z-[2] rounded-[inherit] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]"
+            aria-hidden="true"
+          ></div>
+          <img
+            [src]="card.largeArt"
+            [alt]="card.displayName"
+            class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+            loading="lazy"
+          />
+          <div
+            class="pointer-events-none absolute inset-0 z-[3] bg-gradient-to-t from-black/92 via-black/25 to-transparent"
+            aria-hidden="true"
+          ></div>
+          <div
+            class="pointer-events-none absolute inset-x-0 bottom-0 z-[4] h-24 bg-gradient-to-t from-black/80 to-transparent"
+            aria-hidden="true"
+          ></div>
+          <div class="absolute inset-x-0 bottom-0 z-[5] p-3.5">
+            <h2 class="m-0 font-display text-xs font-black uppercase leading-snug tracking-tight text-cream drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] sm:text-sm">
+              {{ card.displayName }}
+            </h2>
+          </div>
+        </article>
       </div>
+
+      <nav
+        *ngIf="totalPages > 1"
+        class="flex w-full max-w-xl flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-start sm:gap-4"
+        aria-label="Paginação dos cards"
+      >
+        <button
+          type="button"
+          (click)="goPrev()"
+          [disabled]="effectiveCurrentPage <= 1"
+          class="min-h-[44px] rounded-lg border border-crimson-dark/50 bg-black/25 px-4 py-2.5 font-display text-xs font-bold uppercase tracking-widest text-cream
+                 transition-all duration-200 hover:border-crimson/50 hover:bg-crimson/20
+                 disabled:pointer-events-none disabled:opacity-35"
+        >
+          Anterior
+        </button>
+        <span class="py-1 text-left font-display text-xs font-bold uppercase tracking-[0.15em] text-cream/50 sm:py-0 sm:text-left">
+          Página {{ effectiveCurrentPage }} de {{ totalPages }}
+        </span>
+        <button
+          type="button"
+          (click)="goNext()"
+          [disabled]="effectiveCurrentPage >= totalPages"
+          class="min-h-[44px] rounded-lg border border-crimson-dark/50 bg-black/25 px-4 py-2.5 font-display text-xs font-bold uppercase tracking-widest text-cream
+                 transition-all duration-200 hover:border-crimson/50 hover:bg-crimson/20
+                 disabled:pointer-events-none disabled:opacity-35"
+        >
+          Próxima
+        </button>
+      </nav>
     </div>
 
   </div>

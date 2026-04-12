@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Observable } from 'rxjs';
+import { CompetitiveTiersApiDto } from 'src/app/models/elo-sections.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ElosServiceService {
 
-  constructor(private http: HttpClient) { }
+  constructor(protected http: HttpClient) { }
 
-  getElos() {
-    return this.http.get('https://valorant-api.com/v1/competitivetiers');
+  getElos(): Observable<CompetitiveTiersApiDto> {
+    return this.http.get<CompetitiveTiersApiDto>('https://valorant-api.com/v1/competitivetiers');
   }
-  
+
 }

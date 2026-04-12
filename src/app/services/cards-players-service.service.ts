@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { PlayerCardsApiDto } from 'src/app/models/playercard.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CardsPlayersServiceService {
 
-  constructor(private http: HttpClient) { }
+  constructor(protected http: HttpClient) { }
 
-  getCards() {
-    return this.http.get('https://valorant-api.com/v1/playercards?language=pt-BR');
+  getCards(): Observable<PlayerCardsApiDto> {
+    return this.http.get<PlayerCardsApiDto>(
+      'https://valorant-api.com/v1/playercards?language=pt-BR'
+    );
   }
 
 }
